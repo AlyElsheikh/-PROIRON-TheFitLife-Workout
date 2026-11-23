@@ -1,0 +1,2485 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>جدول تمارين PROIRON & TheFitLife الاحترافي</title>
+  <!-- تحميل خط Cairo العربي من Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- تحميل Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Cairo', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            appbg: '#0b1120',
+            cardbg: '#131c31',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* تنسيقات أساسية للتطبيق واللمس على الموبايل واللابتوب */
+    html, body {
+      font-family: 'Cairo', system-ui, -apple-system, sans-serif;
+      background-color: #0b1120;
+      color: #f8fafc;
+      -webkit-tap-highlight-color: transparent;
+      overflow-x: hidden;
+    }
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+    body.modal-open {
+      overflow: hidden;
+    }
+    /* وميض خفيف عند انتهاء مؤقت الراحة */
+    @keyframes timerFlash {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); border-color: #10b981; }
+      50% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); border-color: #34d399; }
+    }
+    .timer-flash {
+      animation: timerFlash 0.7s ease-in-out 3;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#0b1120] text-slate-100 pb-40 selection:bg-emerald-500/30 selection:text-emerald-200">
+
+  <!-- إشعار منبثق (Toast) بديلاً عن alert -->
+  <div id="toast" class="fixed top-4 left-1/2 -translate-x-1/2 z-[80] pointer-events-none opacity-0 transition-all duration-300 transform -translate-y-3 w-[92%] max-w-sm">
+    <div id="toastBox" class="flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-emerald-500 text-slate-950 font-bold text-sm shadow-2xl">
+      <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+      </svg>
+      <span id="toastText">تم التحديث</span>
+    </div>
+  </div>
+
+  <!-- الترويسة الرئيسية -->
+  <header class="relative overflow-hidden border-b border-slate-800/80 bg-gradient-to-b from-[#131c31] via-[#0f172a] to-[#0b1120]">
+    <div class="pointer-events-none absolute -top-24 -right-24 w-72 h-72 rounded-full bg-emerald-500/10 blur-3xl"></div>
+    <div class="pointer-events-none absolute -top-24 -left-24 w-72 h-72 rounded-full bg-sky-500/10 blur-3xl"></div>
+
+    <div class="max-w-[1140px] mx-auto px-4 pt-5 pb-5 relative z-10">
+      <!-- الصف العلوي: العنوان + أزرار الأدوات -->
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3.5">
+        <div>
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-bold">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              برنامج 6 أيام متكامل • 100% بالجانبين معاً
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] font-bold">
+              🛡️ PROIRON (100 LB بغلاف واقٍ)
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-300 text-[11px] font-bold">
+              ⚡ TheFitLife (300 LB أوزان ثقيلة)
+            </span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-white leading-snug">
+            جدول تمارين <span class="text-transparent bg-clip-text bg-gradient-to-l from-emerald-400 via-sky-400 to-amber-400">PROIRON &amp; TheFitLife</span> الاحترافي
+          </h1>
+          <p class="text-slate-400 text-xs sm:text-sm font-semibold mt-1">
+            PROIRON (100 LB بغلاف واقٍ) + TheFitLife (300 LB أوزان ثقيلة) • إحماء + 22 تمرين (110 فيديو مدمج) + إطالات
+          </p>
+        </div>
+
+        <!-- أزرار القواعد ونقل البيانات -->
+        <div class="flex flex-wrap items-center gap-2">
+          <button
+            id="openRulesBtn"
+            type="button"
+            class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-[#131c31] hover:bg-slate-800 border border-slate-700/80 hover:border-emerald-500/50 text-slate-100 text-xs sm:text-sm font-bold shadow-lg transition-all cursor-pointer active:scale-[0.98]"
+          >
+            <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+            القواعد والإرشادات
+          </button>
+
+          <button
+            id="openSyncBtn"
+            type="button"
+            class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-[#131c31] hover:bg-slate-800 border border-slate-700/80 hover:border-sky-400/50 text-slate-100 text-xs sm:text-sm font-bold shadow-lg transition-all cursor-pointer active:scale-[0.98]"
+          >
+            <span>نقل البيانات 💾</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- شريط عداد وقت الحصة الإجمالي (Session Stopwatch) -->
+      <div class="mt-4 p-3 sm:px-4 sm:py-3 rounded-2xl bg-[#131c31]/90 border border-slate-800/90 shadow-lg flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-xs font-bold text-slate-300">عداد وقت الحصة</span>
+              <span class="px-2 py-0.5 rounded-md bg-slate-800 border border-slate-700 text-[10px] font-bold text-slate-400">
+                الهدف: ~55-60 دقيقة
+              </span>
+            </div>
+            <div id="sessionDisplay" class="text-xl sm:text-2xl font-black text-white tabular-nums leading-tight mt-0.5">
+              00:00
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button
+            id="sessionToggleBtn"
+            type="button"
+            class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-extrabold text-xs sm:text-sm transition-all cursor-pointer shadow-md shadow-emerald-500/20"
+          >
+            <svg id="sessionIcon" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            <span id="sessionToggleText">ابدأ التمرين</span>
+          </button>
+          <button
+            id="sessionResetBtn"
+            type="button"
+            class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 border border-slate-700 text-slate-300 text-xs sm:text-sm font-bold transition-all cursor-pointer"
+          >
+            تصفير
+          </button>
+        </div>
+      </div>
+
+      <!-- شريط الجدول الأسبوعي (7 أيام قابلة للضغط) -->
+      <div class="mt-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold text-slate-400">الجدول الأسبوعي (3 أيام تمرين + يوم راحة):</span>
+          <span class="text-[11px] font-semibold text-slate-500">اختر اليوم</span>
+        </div>
+        <div id="weeklyBar" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
+          <!-- يتم التوليد عبر JavaScript -->
+        </div>
+      </div>
+
+      <!-- تبويبات الأقسام السريعة -->
+      <div id="categoryTabs" class="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-2">
+        <!-- يتم التوليد عبر JavaScript -->
+      </div>
+    </div>
+  </header>
+
+  <!-- المحتوى الرئيسي -->
+  <main class="max-w-[1140px] mx-auto px-4 mt-5 space-y-5">
+
+    <!-- شريط التقدم اليومي -->
+    <section id="progressSection" class="bg-[#131c31] border border-slate-800/90 rounded-2xl p-4 sm:p-5 shadow-xl">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+        <div class="min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span id="dayBadge" class="px-2.5 py-0.5 rounded-lg text-[11px] font-extrabold"></span>
+            <h2 id="dayTitle" class="text-lg sm:text-xl font-black text-white"></h2>
+          </div>
+          <p id="daySubtitle" class="text-xs sm:text-sm text-slate-400 font-semibold mt-1"></p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span id="progressCount" class="px-3.5 py-1.5 rounded-xl text-sm font-extrabold tabular-nums border">
+            0 / 15
+          </span>
+          <button
+            id="resetDayBtn"
+            type="button"
+            class="px-3 py-1.5 rounded-xl bg-slate-800/90 hover:bg-rose-500/15 hover:text-rose-300 hover:border-rose-500/40 border border-slate-700 text-slate-300 text-xs font-bold transition-all cursor-pointer active:scale-95"
+          >
+            تصفير تقدم اليوم
+          </button>
+        </div>
+      </div>
+      <div class="w-full h-2.5 bg-[#0b1120] rounded-full overflow-hidden border border-slate-800">
+        <div id="progressBarFill" class="h-full rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+      </div>
+      <div id="progressBreakdown" class="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] font-bold text-slate-400">
+        <!-- تفاصيل الإحماء + الأساسي + الإطالات -->
+      </div>
+    </section>
+
+    <!-- حاوية المحتوى الديناميكي (إحماء + بطاقات التمارين بشبكة متجاوبة + إطالات، أو بطاقة يوم الراحة) -->
+    <div id="contentArea" class="space-y-5">
+      <!-- يتم التوليد عبر JavaScript -->
+    </div>
+
+  </main>
+
+  <!-- نافذة مكتبة الفيديوهات المدمجة (تعمل مباشرة داخل نفس الصفحة على اللابتوب والموبايل) -->
+  <div id="videoModal" class="fixed inset-0 z-50 hidden items-center justify-center p-2.5 sm:p-5 bg-black/85 backdrop-blur-sm">
+    <div class="relative w-full max-w-3xl max-h-[92vh] overflow-y-auto bg-[#131c31] border border-slate-700/80 rounded-3xl shadow-2xl flex flex-col">
+      <!-- رأس النافذة -->
+      <div class="sticky top-0 z-20 flex items-start justify-between gap-3 px-4 sm:px-6 py-4 bg-[#131c31]/95 backdrop-blur-md border-b border-slate-800">
+        <div class="min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span id="modalLibraryBadge" class="px-2.5 py-0.5 rounded-lg bg-red-500/15 border border-red-500/30 text-red-400 text-[11px] font-extrabold">
+              مكتبة الفيديوهات (5)
+            </span>
+            <h3 id="modalExerciseAr" class="text-base sm:text-lg font-extrabold text-white truncate"></h3>
+          </div>
+          <p id="modalExerciseEn" class="text-xs text-slate-400 font-semibold mt-0.5"></p>
+        </div>
+        <button
+          id="closeVideoModalBtn"
+          type="button"
+          aria-label="إغلاق"
+          class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- جسم النافذة -->
+      <div class="p-4 sm:p-6 space-y-4">
+        <!-- تذكير سريع بمكان التثبيت أو الملاحظة -->
+        <div class="p-3 rounded-2xl bg-[#0b1120] border border-slate-800 text-xs sm:text-sm text-slate-300 flex items-start gap-2.5 leading-relaxed">
+          <svg class="w-4 h-4 text-amber-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span><strong id="modalContextLabel" class="text-white">التثبيت والوضعية:</strong> <span id="modalAnchorText"></span></span>
+        </div>
+
+        <!-- مشغل الفيديو المدمج مباشرة داخل الصفحة (لابتوب + موبايل) -->
+        <div class="relative w-full aspect-video rounded-2xl overflow-hidden bg-black border border-slate-700/80 shadow-xl">
+          <iframe
+            id="modalYoutubeIframe"
+            class="w-full h-full"
+            src=""
+            title="فيديو شرح التمرين"
+            frameborder="0"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <!-- معلومات الفيديو الحالي + رابط بديل صغير فقط في حال حظر التضمين -->
+        <div class="p-3.5 sm:p-4 rounded-2xl bg-[#0b1120] border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span id="activeVideoBadge" class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 text-[11px] font-extrabold">فيديو 1 من 5</span>
+              <span id="activeVideoChannel" class="text-xs font-bold text-slate-400 truncate"></span>
+            </div>
+            <p id="activeVideoTitle" class="text-xs sm:text-sm font-bold text-white mt-1 leading-snug" dir="ltr" style="text-align: right;"></p>
+          </div>
+
+          <a
+            id="openExternalYoutube"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white font-bold text-xs transition-all"
+          >
+            <span>فتح في يوتيوب ↗ (بديل)</span>
+          </a>
+        </div>
+
+        <!-- قائمة الفيديوهات المتاحة لهذا التمرين (تبديل فوري داخل المشغل) -->
+        <div id="modalVideoListWrap">
+          <div class="flex items-center justify-between mb-2">
+            <span id="modalVideoListHeading" class="text-xs font-bold text-slate-300">جميع الفيديوهات المتاحة:</span>
+            <span class="text-[11px] font-semibold text-slate-500">اضغط على أي فيديو للتشغيل الفوري داخل الصفحة</span>
+          </div>
+          <div id="modalVideoList" class="space-y-2">
+            <!-- يتم توليد الصفوف هنا -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- نافذة القواعد والإرشادات -->
+  <div id="rulesModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-sm">
+    <div class="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-[#131c31] border border-slate-700/80 rounded-3xl shadow-2xl">
+      <div class="sticky top-0 z-10 flex items-center justify-between px-5 py-4 bg-[#131c31]/95 backdrop-blur-md border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <h3 class="text-base sm:text-lg font-extrabold text-white">القواعد والإرشادات (PROIRON &amp; TheFitLife)</h3>
+        </div>
+        <button
+          id="closeRulesModalBtn"
+          type="button"
+          aria-label="إغلاق"
+          class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-5 space-y-3.5">
+        <div class="p-4 rounded-2xl bg-[#0b1120] border border-emerald-500/25">
+          <div class="flex items-center justify-between gap-2 mb-1.5">
+            <h4 class="text-sm sm:text-base font-extrabold text-emerald-400">1. الترتيب الزمني للحصة (~55–60 دقيقة)</h4>
+            <span class="px-2.5 py-0.5 rounded-lg bg-emerald-500/15 text-emerald-300 text-[11px] font-bold">إحماء + مقاومة + إطالة</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            ابدأ بقسم الإحماء (5 دقايق) لحماية المفاصل، ثم أدِّ تمارين اليوم الأساسية بتركيز (40–45 دقيقة)، واختم بقسم الإطالات والتهدئة (5–8 دقايق) لتقليل الشد العضلي وتسريع الاستشفاء.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-[#0b1120] border border-sky-500/25">
+          <div class="flex items-center justify-between gap-2 mb-1.5">
+            <h4 class="text-sm sm:text-base font-extrabold text-sky-400">2. سرعة الحركة والتحكم (Tempo)</h4>
+            <span class="px-2.5 py-0.5 rounded-lg bg-sky-500/15 text-sky-300 text-[11px] font-bold">1ث شد / 2–3ث رجوع</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            اسحب أو ادفع بقوة في ثانية واحدة، اثبت لحظة لعصر العضلة، ثم ارجع ببطء في 2–3 ثواني قبل أن يرتخي الحبل تماماً. التحكم في الرجوع هو سر شد الجسم وحرق الدهون.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-[#0b1120] border border-amber-500/25">
+          <div class="flex items-center justify-between gap-2 mb-1.5">
+            <h4 class="text-sm sm:text-base font-extrabold text-amber-400">3. التدرج في المقاومة والملاحظات</h4>
+            <span class="px-2.5 py-0.5 rounded-lg bg-amber-500/15 text-amber-300 text-[11px] font-bold">Progressive Overload</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            سجّل وزن الحبل المستخدم (من PROIRON أو TheFitLife) واكتب ملاحظتك السريعة في كل بطاقة. أول ما توصل للـ 15 عدة بسهولة في كل المجموعات، انقل للحبل الأثقل أو اجمع حبلين معاً في نفس المقابض.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-[#0b1120] border border-violet-500/25">
+          <div class="flex items-center justify-between gap-2 mb-1.5">
+            <h4 class="text-sm sm:text-base font-extrabold text-violet-400">4. متابع المجموعات والراحة التلقائية</h4>
+            <span class="px-2.5 py-0.5 rounded-lg bg-violet-500/15 text-violet-300 text-[11px] font-bold">45 – 90 ثانية</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            اضغط على دائرة المجموعة (1، 2، 3...) فور إنهائها ليبدأ مؤقت الراحة تلقائياً أسفل الشاشة. استخدم 45–60 ثانية للعزل و60–90 ثانية للسكوات والرفعة الميتة.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-[#0b1120] border border-rose-500/30">
+          <div class="flex items-center justify-between gap-2 mb-1.5 flex-wrap">
+            <h4 class="text-sm sm:text-base font-extrabold text-rose-400">5. الأمان وتوزيع الطقمين (PROIRON + TheFitLife)</h4>
+            <span class="px-2.5 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 text-[11px] font-bold">حماية وأوزان عالية</span>
+          </div>
+          <ul class="text-xs sm:text-sm text-slate-300 leading-relaxed space-y-1.5 list-disc list-inside">
+            <li><strong class="text-amber-300">PROIRON (حتى 100 LB):</strong> مغلف ببوليستر مع واقٍ وسطي — استخدمه لتمارين العزل (كتف، بايسبس، ترايسبس، سحب للوجه) والتمارين التي تقف فيها على الحبل لحمايته من احتكاك الأرض.</li>
+            <li><strong class="text-sky-300">TheFitLife (حتى 300 LB):</strong> أنابيب لاتكس مكشوفة لأوزان ثقيلة — استخدمه للتمارين المركبة الثقيلة (سكوات، رفعة ميتة، ظهر، صدر)، وقف دائماً على مرتبة تمرين أو بحذاء نعل مسطح ناعم.</li>
+            <li><strong class="text-white">قواعد الأمان الإلزامية:</strong> افحص الحبال والمشابك قبل كل تمرين للتأكد من عدم وجود تشققات، ثبّت مرساة الباب دائماً من <strong class="text-emerald-300">جهة المفصلات</strong> وأقفل الباب بالمفتاح، وتجنب سحب الحبل المشدود مباشرة نحو الوجه.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- نافذة نقل ومزامنة البيانات (Export / Import JSON) -->
+  <div id="syncModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-sm">
+    <div class="relative w-full max-w-xl max-h-[90vh] overflow-y-auto bg-[#131c31] border border-slate-700/80 rounded-3xl shadow-2xl">
+      <div class="sticky top-0 z-10 flex items-center justify-between px-5 py-4 bg-[#131c31]/95 backdrop-blur-md border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <span class="text-lg">💾</span>
+          <h3 class="text-base sm:text-lg font-extrabold text-white">نقل البيانات بين الموبايل والكمبيوتر</h3>
+        </div>
+        <button
+          id="closeSyncModalBtn"
+          type="button"
+          aria-label="إغلاق"
+          class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-5 space-y-5">
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          بياناتك (أوزان الحبال، الملاحظات، المجموعات، الإحماء والإطالات) محفوظة محلياً على جهازك. استخدم الخيارات بالأسفل لنسخها أو نقلها كملف <code class="text-sky-300 font-bold">.json</code> إلى جهاز آخر.
+        </p>
+
+        <!-- قسم التصدير (Export) -->
+        <div class="p-4 rounded-2xl bg-[#0b1120] border border-slate-800 space-y-3">
+          <h4 class="text-sm font-extrabold text-emerald-400">1. تصدير بياناتك الحالية (نسخة احتياطية)</h4>
+          <textarea
+            id="exportJsonText"
+            readonly
+            rows="4"
+            dir="ltr"
+            class="w-full p-3 rounded-xl bg-[#131c31] border border-slate-700 text-slate-300 text-xs font-mono focus:outline-none resize-none"
+          ></textarea>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <button
+              id="copyJsonBtn"
+              type="button"
+              class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-extrabold text-xs sm:text-sm transition-all cursor-pointer"
+            >
+              نسخ كود البيانات (Copy JSON)
+            </button>
+            <button
+              id="downloadJsonBtn"
+              type="button"
+              class="px-4 py-2.5 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/40 text-sky-300 font-extrabold text-xs sm:text-sm transition-all cursor-pointer active:scale-95"
+            >
+              تحميل ملف (.json) ⬇
+            </button>
+          </div>
+        </div>
+
+        <!-- قسم الاستيراد (Import) -->
+        <div class="p-4 rounded-2xl bg-[#0b1120] border border-slate-800 space-y-3">
+          <h4 class="text-sm font-extrabold text-amber-400">2. استيراد بيانات من جهاز آخر</h4>
+          <textarea
+            id="importJsonText"
+            rows="4"
+            dir="ltr"
+            placeholder="الصق كود JSON هنا..."
+            class="w-full p-3 rounded-xl bg-[#131c31] border border-slate-700 focus:border-amber-400 text-slate-100 text-xs font-mono focus:outline-none resize-none"
+          ></textarea>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <button
+              id="pasteImportBtn"
+              type="button"
+              class="px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 active:scale-95 text-slate-950 font-extrabold text-xs sm:text-sm transition-all cursor-pointer"
+            >
+              استيراد النص الملصق
+            </button>
+            <label class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-extrabold text-xs sm:text-sm transition-all cursor-pointer text-center active:scale-95">
+              رفع ملف (.json) ⬆
+              <input id="uploadJsonInput" type="file" accept=".json,application/json" class="hidden" />
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- شريط مؤقت الراحة العائم أسفل الشاشة -->
+  <aside class="fixed bottom-3 left-1/2 -translate-x-1/2 z-40 w-[95%] max-w-3xl">
+    <div id="timerCard" class="bg-[#131c31]/95 backdrop-blur-xl border border-slate-700/80 rounded-2xl px-3.5 py-2.5 shadow-2xl shadow-black/90 transition-all duration-300">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <!-- العد التنازلي -->
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <div class="text-[10px] text-slate-400 font-bold leading-none">مؤقت الراحة</div>
+            <div id="timerDisplay" class="text-xl sm:text-2xl font-black text-white tabular-nums leading-tight">00:45</div>
+          </div>
+        </div>
+
+        <!-- أزرار 45 / 60 / 90 ثانية -->
+        <div class="flex items-center gap-1">
+          <button type="button" data-preset="45" class="preset-btn px-2.5 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer">
+            45ث
+          </button>
+          <button type="button" data-preset="60" class="preset-btn px-2.5 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer">
+            60ث
+          </button>
+          <button type="button" data-preset="90" class="preset-btn px-2.5 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer">
+            90ث
+          </button>
+        </div>
+
+        <!-- مفتاح التشغيل التلقائي عند إنهاء مجموعة -->
+        <button
+          id="autoRestToggleBtn"
+          type="button"
+          title="تشغيل المؤقت تلقائياً عند الضغط على دائرة المجموعة"
+          class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-[11px] font-extrabold transition-all cursor-pointer active:scale-95"
+        >
+          <span id="autoRestDot" class="w-2.5 h-2.5 rounded-full"></span>
+          <span>تلقائي</span>
+        </button>
+
+        <!-- أزرار التشغيل والإعادة -->
+        <div class="flex items-center gap-1.5">
+          <button
+            id="timerToggleBtn"
+            type="button"
+            class="px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-extrabold text-xs sm:text-sm transition-all cursor-pointer flex items-center gap-1.5"
+          >
+            <svg id="timerPlayIcon" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            <span id="timerToggleText">ابدأ</span>
+          </button>
+          <button
+            id="timerResetBtn"
+            type="button"
+            aria-label="إعادة المؤقت"
+            class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 border border-slate-700 transition-all cursor-pointer"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <script>
+    // =========================================================================
+    // 1. الإعدادات الثابتة: خيارات حبال PROIRON + TheFitLife، ألوان الأقسام، وجدول الأسبوع
+    // =========================================================================
+    const BAND_GROUPS = [
+      {
+        label: 'طقم PROIRON (حتى 100 LB - بغلاف واقٍ)',
+        options: [
+          '10 LB (أصفر - PROIRON)',
+          '15 LB (أزرق - PROIRON)',
+          '20 LB (أحمر - PROIRON)',
+          '25 LB (أخضر - PROIRON)',
+          '30 LB (أسود - PROIRON)',
+          '35-50 LB (تجميعة PROIRON)',
+          '55-100 LB (تجميعة PROIRON)',
+        ],
+      },
+      {
+        label: 'طقم TheFitLife (حتى 300 LB - أوزان ثقيلة)',
+        options: [
+          '30 LB (TheFitLife)',
+          '40 LB (TheFitLife)',
+          '50 LB (TheFitLife)',
+          '60 LB (TheFitLife)',
+          '70 LB (TheFitLife)',
+          '80 LB (TheFitLife)',
+          '100 LB (تجميعة TheFitLife)',
+          '120 LB (تجميعة TheFitLife)',
+          '150 LB (تجميعة TheFitLife)',
+          '180 LB (تجميعة TheFitLife)',
+          '200 LB (تجميعة TheFitLife)',
+          '250 LB (تجميعة TheFitLife)',
+          '300 LB (أقصى مقاومة TheFitLife)',
+        ],
+      },
+      {
+        label: 'أخرى',
+        options: [
+          'بدون حبل (وزن الجسم)',
+        ],
+      },
+    ];
+
+    const ALL_BAND_OPTIONS = BAND_GROUPS.flatMap((g) => g.options);
+
+    const DAY_THEMES = {
+      push: {
+        badge: 'bg-emerald-500/15 border border-emerald-500/35 text-emerald-300',
+        progressFill: 'bg-gradient-to-l from-emerald-400 to-teal-400',
+        activeDayBtn: 'bg-emerald-500/20 border-emerald-400 text-emerald-300 shadow-lg shadow-emerald-500/10',
+        activeTabBtn: 'bg-emerald-500 text-slate-950 border-emerald-400 shadow-lg shadow-emerald-500/20',
+        numberBg: 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30',
+        setsBadge: 'bg-emerald-500/15 border-emerald-500/30 text-emerald-300',
+        setDoneBtn: 'bg-emerald-500 border-emerald-400 text-slate-950 shadow-md shadow-emerald-500/25',
+        dot: 'bg-emerald-400',
+        tagText: 'يوم الدفع • Push',
+      },
+      pull: {
+        badge: 'bg-sky-500/15 border border-sky-500/35 text-sky-300',
+        progressFill: 'bg-gradient-to-l from-sky-400 to-cyan-400',
+        activeDayBtn: 'bg-sky-500/20 border-sky-400 text-sky-300 shadow-lg shadow-sky-500/10',
+        activeTabBtn: 'bg-sky-400 text-slate-950 border-sky-300 shadow-lg shadow-sky-400/20',
+        numberBg: 'bg-sky-500/15 text-sky-300 border border-sky-500/30',
+        setsBadge: 'bg-sky-500/15 border-sky-500/30 text-sky-300',
+        setDoneBtn: 'bg-sky-400 border-sky-300 text-slate-950 shadow-md shadow-sky-400/25',
+        dot: 'bg-sky-400',
+        tagText: 'يوم السحب • Pull',
+      },
+      lower: {
+        badge: 'bg-amber-500/15 border border-amber-500/35 text-amber-300',
+        progressFill: 'bg-gradient-to-l from-amber-400 to-orange-400',
+        activeDayBtn: 'bg-amber-500/20 border-amber-400 text-amber-300 shadow-lg shadow-amber-500/10',
+        activeTabBtn: 'bg-amber-400 text-slate-950 border-amber-300 shadow-lg shadow-amber-400/20',
+        numberBg: 'bg-amber-500/15 text-amber-300 border border-amber-500/30',
+        setsBadge: 'bg-amber-500/15 border-amber-500/30 text-amber-300',
+        setDoneBtn: 'bg-amber-400 border-amber-300 text-slate-950 shadow-md shadow-amber-400/25',
+        dot: 'bg-amber-400',
+        tagText: 'رجلين وبطن • Lower',
+      },
+      rest: {
+        badge: 'bg-violet-500/15 border border-violet-500/35 text-violet-300',
+        progressFill: 'bg-violet-500',
+        activeDayBtn: 'bg-violet-500/20 border-violet-400 text-violet-300 shadow-lg shadow-violet-500/10',
+        activeTabBtn: 'bg-violet-400 text-slate-950 border-violet-300 shadow-lg shadow-violet-400/20',
+        numberBg: 'bg-violet-500/15 text-violet-300 border border-violet-500/30',
+        setsBadge: 'bg-violet-500/15 border-violet-500/30 text-violet-300',
+        setDoneBtn: 'bg-violet-400 border-violet-300 text-slate-950',
+        dot: 'bg-violet-400',
+        tagText: 'استشفاء • Rest',
+      },
+    };
+
+    const WEEKLY_SCHEDULE = [
+      { day: 'يوم 1', label: 'دفع (Push)', type: 'push' },
+      { day: 'يوم 2', label: 'سحب (Pull)', type: 'pull' },
+      { day: 'يوم 3', label: 'رجلين وبطن', type: 'lower' },
+      { day: 'يوم 4', label: 'راحة (Rest)', type: 'rest' },
+      { day: 'يوم 5', label: 'دفع (Push)', type: 'push' },
+      { day: 'يوم 6', label: 'سحب (Pull)', type: 'pull' },
+      { day: 'يوم 7', label: 'رجلين وبطن', type: 'lower' },
+    ];
+
+    const CATEGORY_TABS = [
+      { type: 'push', label: 'الدفع (7 تمارين)', defaultDayIdx: 0 },
+      { type: 'pull', label: 'السحب (7 تمارين)', defaultDayIdx: 1 },
+      { type: 'lower', label: 'الرجلين والبطن (8)', defaultDayIdx: 2 },
+      { type: 'rest', label: 'يوم الراحة', defaultDayIdx: 3 },
+    ];
+
+    // =========================================================================
+    // 2. قاعدة بيانات التمارين الكاملة (الإحماء + 22 تمرين بـ 110 فيديو + الإطالات)
+    // =========================================================================
+    const WORKOUT_DATA = {
+      push: {
+        title: 'يوم الدفع (Push)',
+        subtitle: 'صدر علوي وأوسط وسفلي + كتف أمامي وجانبي + ترايسبس',
+        warmup: [
+          {
+            id: 'wu-push-1',
+            arName: 'تدوير الذراعين والكتفين',
+            enName: 'Arm Circles',
+            reps: '30ث للأمام + 30ث للخلف',
+            note: 'دوائر واسعة وهادئة لتسخين مفصل الكتف قبل الدفع',
+            videos: [{ id: 'UVMEnIaY8aU', title: 'Arm Circles Warmup Exercise', channel: 'Sworkit' }],
+          },
+          {
+            id: 'wu-push-2',
+            arName: 'فتح الصدر بالحبل الخفيف',
+            enName: 'Band Pull-Aparts',
+            reps: '2 × 15 عدة (أخف حبل)',
+            note: 'شد الحبل أمام الصدر بعرض الكتف لتنشيط أعلى الظهر وحماية الكتف',
+            videos: [{ id: 'stwYTTPXubo', title: 'Resistance Band Pull-Aparts', channel: 'Tangelo' }],
+          },
+          {
+            id: 'wu-push-3',
+            arName: 'تدوير الكتف بالحبل',
+            enName: 'Band Shoulder Pass-Throughs',
+            reps: '12 عدة ببطء',
+            note: 'مرّر الحبل فوق رأسك وخلف ظهرك بذراعين مفرودتين لفتح الصدر',
+            videos: [{ id: 'MDHUJR86A8I', title: 'Band Shoulder Pass-Throughs', channel: 'JTM_FIT' }],
+          },
+          {
+            id: 'wu-push-4',
+            arName: 'دوران خارجي للكتف',
+            enName: 'Band External Rotation',
+            reps: '12 عدة لحماية المفصل',
+            note: 'ثبّت كوعك بجانب جسمك واسحب الحبل للخارج لتسخين الكفة المدورة',
+            videos: [{ id: 'dS9ORQCnWsE', title: 'Resistance Band External Rotation', channel: 'Gear Up PT' }],
+          },
+        ],
+        exercises: [
+          {
+            id: 'ex-1',
+            arName: 'دفع صدر مائل لأعلى',
+            enName: 'Incline Chest Press',
+            target: 'الصدر العلوي + كتف أمامي',
+            kit: 'PROIRON للبداية / TheFitLife للتثقيل',
+            kitType: 'both',
+            anchor: 'تحت الباب — ضهرك للباب، ادفع للأمام ولأعلى (45°)',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: '61qgn2ISsw4', title: 'Incline Resistance Band Chest Press', channel: 'Digg Deep Fitness' },
+              { id: 'RzJMbxUEP9c', title: 'How To Do Incline Chest Press With Resistance Band', channel: 'Fitness My Life' },
+              { id: 'uEy0X8UmfCk', title: 'HOW TO DO Incline Chest Press with Resistance Bands', channel: 'Bodylastics' },
+              { id: 'Infd_StwnTg', title: 'Resistance Band Incline Chest Press', channel: 'Pursuit Fitness' },
+              { id: '-z0MB1Uhgs8', title: 'Incline chest press (resistance band)', channel: '66 Days Fitness' },
+            ],
+          },
+          {
+            id: 'ex-2',
+            arName: 'دفع صدر مستقيم',
+            enName: 'Flat Chest Press',
+            target: 'منتصف الصدر',
+            kit: 'TheFitLife (أوزان ثقيلة حتى 300 LB)',
+            kitType: 'fitlife',
+            anchor: 'نص الباب (المفصلات) — ضهرك للباب، ادفع مستقيم للأمام',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: 'oQpnL60ptmU', title: 'Chest- Resistance bands mid door anchored chest press', channel: 'Fit2Go PT' },
+              { id: 'POx0bVn823Q', title: 'Standing Chest Press Using Resistance Bands', channel: 'Home Gym Fitness' },
+              { id: '7q2395GvhZc', title: 'How to Do a Band Chest Press (w/ Anchor)', channel: 'Mountain Goat' },
+              { id: 'gOodfSFUj5E', title: 'INEVIFIT Resistance Bands Exercise Guide - Chest Press', channel: 'INEVIFIT' },
+              { id: '6-86jEAXA08', title: 'How To: Resistance Band Chest Press', channel: 'Live Lean TV' },
+            ],
+          },
+          {
+            id: 'ex-3',
+            arName: 'تفتيح صدر للأسفل',
+            enName: 'Decline Chest Fly',
+            target: 'الصدر السفلي والجانبي/الداخلي',
+            kit: 'PROIRON (تحكم وعزل)',
+            kitType: 'proiron',
+            anchor: 'فوق الباب — ضهرك للباب، ضم إيديك لتحت قدام وسطك',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: 'nqy7KgNwjyk', title: 'Chest Fly (Lower Chest) with Door Anchor for Resistance Bands', channel: 'Tribe Lifting' },
+              { id: 'mrBv6mmDOY4', title: 'Resistance Band High to Low Fly', channel: 'Lean Yodha' },
+              { id: 'E8pu20jT3So', title: 'Resistance Band Exercises - Low Chest Fly', channel: 'Shape Bands' },
+              { id: 'ZfEJpC_Xehg', title: 'Band Decline Chest Fly', channel: 'Fit 4 Everyone' },
+              { id: 'NDzLixr_k7I', title: 'Chest Flys with Resistance Bands', channel: 'Clench Fitness' },
+            ],
+          },
+          {
+            id: 'ex-4',
+            arName: 'دفع كتف للأعلى',
+            enName: 'Shoulder Press',
+            target: 'الكتف الأمامي + الجانبي',
+            kit: 'PROIRON (غلاف واقٍ تحت القدم)',
+            kitType: 'proiron',
+            anchor: 'تحت القدمين — واقف على نص الحبل وبتدفع لفوق',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: 'Ky8S6SCcyxI', title: 'How To Do Shoulder Press With Resistance Band', channel: 'Fitness My Life' },
+              { id: '1-VfJqjYquQ', title: 'Resistance Band Overhead Press', channel: 'LGN Lyfestile' },
+              { id: '1sJNPsjqom8', title: 'How To Perform Proper Shoulder Press With Resistance Bands', channel: 'Home Pro Gym' },
+              { id: 'yAPw1i01j2E', title: 'Shoulders- Resistance band standing on band overhead press', channel: 'Fit2Go PT' },
+              { id: 'DWw4e2o9gto', title: 'Shoulder Workout Resistance Bands Shoulder Press', channel: 'James Grage' },
+            ],
+          },
+          {
+            id: 'ex-5',
+            arName: 'رفرفة جانبية',
+            enName: 'Lateral Raises',
+            target: 'الكتف الجانبي (عرض الكتف)',
+            kit: 'PROIRON (مقاومة خفيفة + غلاف واقٍ)',
+            kitType: 'proiron',
+            anchor: 'تحت القدمين (اعكس الحبل X) — ارفع دراعاتك للجنب',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: 'aWZUEr7Jfx0', title: 'How To Do Side Lateral Raises With Resistance Band', channel: 'Fitness My Life' },
+              { id: '__0jIbOwnfI', title: 'Band Lateral Raise', channel: 'Evan Harrison' },
+              { id: 'dlxw3Qkjq9o', title: 'Proper Lateral Raise With Resistance Bands', channel: 'Home Pro Gym' },
+              { id: 'yfNg5sFndbw', title: 'Band Lateral Raise', channel: "Men's Health" },
+              { id: 'gfEyrmxbCbw', title: 'How To: Resistance Band Lateral Raise', channel: 'Live Lean TV' },
+            ],
+          },
+          {
+            id: 'ex-6',
+            arName: 'دفع ترايسبس للأسفل',
+            enName: 'Tricep Pushdown',
+            target: 'الترايسبس (الرأس الجانبي)',
+            kit: 'PROIRON أو TheFitLife',
+            kitType: 'both',
+            anchor: 'فوق الباب — وشك للباب، افرد كوعك لتحت',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: 'PkGesjlH7RQ', title: 'Resistance Band Exercises - Triceps Pushdown', channel: 'Shape Bands' },
+              { id: 'PtHlGbiCglY', title: 'Triceps Pushdown Form with Resistance Bands', channel: 'Go with JO' },
+              { id: '9Ziwxa7dGJo', title: 'Triceps Pushdown with Resistance Band', channel: 'KelseyByersFitness' },
+              { id: 'Y3CDzx-oj3k', title: 'How To Do Triceps Pushdowns with Resistance Bands', channel: 'Undersun Fitness' },
+              { id: 'p1pmKGJgcr0', title: 'Resistance Band Tricep Pushdown', channel: 'Dale Dymkoski' },
+            ],
+          },
+          {
+            id: 'ex-7',
+            arName: 'ترايسبس فوق الرأس',
+            enName: 'Overhead Tricep Extension',
+            target: 'الترايسبس (الرأس الطويل الخلفي)',
+            kit: 'PROIRON (تحكم وعزل)',
+            kitType: 'proiron',
+            anchor: 'نص أو فوق الباب — ضهرك للباب، افرد دراعاتك للأمام فوق راسك',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: 'RjLzq6QfQ0s', title: 'Resistance Band Overhead Tricep Extensions w/ Door Anchor', channel: 'Lukas Duncan' },
+              { id: 'Ewqe_z1HKno', title: 'How to Do Overhead Tricep Extensions with Resistance Bands', channel: 'YuryFit' },
+              { id: 'a5rUdCeTtSE', title: 'Resistance Band Tricep Extensions', channel: 'SKLZ' },
+              { id: 'xPgtezPGbOk', title: 'Overhead Tricep Extension with Resistance Band', channel: 'TailoredPT' },
+              { id: 'rL60vVkUyzM', title: 'Overhead Triceps Extensions with Resistance Bands', channel: 'Bodylastics' },
+            ],
+          },
+        ],
+        cooldown: [
+          {
+            id: 'cd-push-1',
+            arName: 'إطالة الصدر على الباب',
+            enName: 'Doorway Chest Stretch',
+            reps: '30–45 ثانية',
+            note: 'ضع ساعديك على إطار الباب وتقدم خطوة للأمام لإرخاء عضلات الصدر',
+            videos: [{ id: 'O8rJw_TmC1Y', title: 'Doorway Chest Stretch', channel: 'Rehab Hero' }],
+          },
+          {
+            id: 'cd-push-2',
+            arName: 'إطالة الكتف الجانبي والخلفي',
+            enName: 'Cross-Body Shoulder Stretch',
+            reps: '30ث لكل ذراع',
+            note: 'اسحب ذراعك بلطف أمام صدرك مع الحفاظ على الكتف منخفضاً',
+            videos: [{ id: 'aIq0fLi8iak', title: 'Cross-Body Shoulder Stretch', channel: 'React PT' }],
+          },
+          {
+            id: 'cd-push-3',
+            arName: 'إطالة الترايسبس خلف الرأس',
+            enName: 'Overhead Tricep Stretch',
+            reps: '30ث لكل ذراع',
+            note: 'اثنِ كوعك خلف رأسك واضغط عليه بلطف باليد الأخرى',
+            videos: [{ id: '_IOHtPSYGbk', title: 'Overhead Tricep Stretch', channel: 'React PT' }],
+          },
+          {
+            id: 'cd-push-4',
+            arName: 'وضعية الطفل لإرخاء الكتف',
+            enName: "Child's Pose",
+            reps: '45 ثانية مع تنفس عميق',
+            note: 'افرد ذراعيك للأمام على الأرض وخذ شهيقاً وزفيراً عميقاً لتهدئة النبض',
+            videos: [{ id: 'nMp3MlTz9fA', title: "Child's Pose Stretch", channel: 'Medibank' }],
+          },
+        ],
+      },
+      pull: {
+        title: 'يوم السحب (Pull)',
+        subtitle: 'ظهر بكل زواياه + كتف خلفي + ترابيس + بايسبس وساعد',
+        warmup: [
+          {
+            id: 'wu-pull-1',
+            arName: 'تدوير الذراعين والكتفين',
+            enName: 'Arm Circles',
+            reps: '30ث للأمام + 30ث للخلف',
+            note: 'تنشيط الكتفين ولوحي الكتف قبل تمارين السحب',
+            videos: [{ id: 'UVMEnIaY8aU', title: 'Arm Circles Warmup Exercise', channel: 'Sworkit' }],
+          },
+          {
+            id: 'wu-pull-2',
+            arName: 'تمرين القطة والبقرة',
+            enName: 'Cat-Cow Stretch',
+            reps: '10 عدات ببطء لتليين الظهر',
+            note: 'تقويس وفرد العمود الفقري ببطء مع التنفس لتليين الظهر بالكامل',
+            videos: [{ id: 'LIVJZZyZ2qM', title: 'Cat-Cow Stretch Tutorial', channel: 'Dr. Dawn' }],
+          },
+          {
+            id: 'wu-pull-3',
+            arName: 'فتح الظهر بالحبل الخفيف',
+            enName: 'Band Pull-Aparts',
+            reps: '2 × 15 عدة لتنشيط أعلى الظهر',
+            note: 'عصر لوحي الكتف للخلف بأخف حبل لإيقاظ عضلات الظهر العلوي',
+            videos: [{ id: 'stwYTTPXubo', title: 'Resistance Band Pull-Aparts', channel: 'Tangelo' }],
+          },
+          {
+            id: 'wu-pull-4',
+            arName: 'تدوير الكتف بالحبل',
+            enName: 'Band Shoulder Pass-Throughs',
+            reps: '12 عدة ببطء',
+            note: 'توسيع مدى حركة الكتف استعداداً للسحب العالي والأفقي',
+            videos: [{ id: 'MDHUJR86A8I', title: 'Band Shoulder Pass-Throughs', channel: 'JTM_FIT' }],
+          },
+        ],
+        exercises: [
+          {
+            id: 'ex-8',
+            arName: 'سحب عالي',
+            enName: 'Lat Pulldown',
+            target: 'المجنص العلوي (عرض الظهر)',
+            kit: 'TheFitLife (أوزان ثقيلة حتى 300 LB)',
+            kitType: 'fitlife',
+            anchor: 'فوق الباب — وشك للباب (واقف أو على ركبتك)',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: 'nmY4MTSFln8', title: 'Lat Pulldown with Resistance Band', channel: 'Digg Deep Fitness' },
+              { id: '_97pmOC2tzE', title: 'How To Do Lat Pull Down With Resistance Band', channel: 'Fitness My Life' },
+              { id: '2K6U6ScTdUI', title: 'How To Do Resistance Band Lat Pull Down', channel: 'Calixpert' },
+              { id: 'K59OGC4aeQ4', title: 'Lat Pull Down with a resistance band', channel: 'Dawn Brooks' },
+              { id: 'XFUHrs8pnx8', title: 'Banded Lat Pulldown', channel: 'Rehab Hero' },
+            ],
+          },
+          {
+            id: 'ex-9',
+            arName: 'سحب أفقي للبطن',
+            enName: 'Standing Row',
+            target: 'وسط الظهر (السماكة)',
+            kit: 'TheFitLife (أوزان ثقيلة حتى 300 LB)',
+            kitType: 'fitlife',
+            anchor: 'نص الباب (المفصلات) — وشك للباب، اسحب لبطنك واعصر ضهرك',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: 'k7EPhs1i9mU', title: 'Standing Back Row Using Resistance Band with Door Anchor', channel: 'Home Gym Fitness' },
+              { id: 'fon0KShqkO4', title: 'INEVIFIT Resistance Bands Exercise Guide - Standing Rows', channel: 'INEVIFIT' },
+              { id: '43OF6Pq6-fU', title: 'Standing Band Row', channel: 'Performance You' },
+              { id: 'e0WTxcNw7g0', title: 'Doorway Band rows', channel: 'Madi Queen' },
+              { id: 'db43OS-4ruY', title: 'How to Do a Standing Row with Band', channel: 'Health e-University' },
+            ],
+          },
+          {
+            id: 'ex-10',
+            arName: 'سحب بذراعين مفرودتين',
+            enName: 'Straight-Arm Pulldown',
+            target: 'المجنص السفلي',
+            kit: 'PROIRON أو TheFitLife',
+            kitType: 'both',
+            anchor: 'فوق الباب — وشك للباب بميل خفيف، اسحب لتحت وذراعك مفرود',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: 'cgdHyuqDWnA', title: 'Banded Straight-Arm Front Lat Pulldown (High Door Anchor)', channel: 'Rick StrongBack' },
+              { id: '5pCotNbVsY4', title: 'Straight Arm Pull-downs with Resistance band', channel: 'Resistbnd' },
+              { id: 'yldAhz-yO0o', title: 'Resistance Bands Back Exercise: Straight Arm Pushdowns', channel: 'Undersun Fitness' },
+              { id: 'kHPkFYKW4vY', title: 'INEVIFIT Resistance Bands Exercise Guide - Straight Arm Pull Over', channel: 'INEVIFIT' },
+              { id: 'Fn_c94pLpVE', title: 'How To Do Resistance Band Straight Arm Pull Down', channel: 'Calixpert' },
+            ],
+          },
+          {
+            id: 'ex-11',
+            arName: 'سحب للوجه',
+            enName: 'Face Pull',
+            target: 'الكتف الخلفي + أعلى الظهر',
+            kit: 'PROIRON (مقاومة خفيفة وتحكم)',
+            kitType: 'proiron',
+            anchor: 'فوق أو نص الباب — وشك للباب، اسحب ناحية جبهتك وافتح كوعك',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: 'KBswBncc1gs', title: 'How to perform a Face Pull with Door Anchor', channel: 'W8 GYM' },
+              { id: 'JBpj9-3tP0c', title: 'How To Do Face Pull With Resistance Band', channel: 'Fitness My Life' },
+              { id: 'a0mnecMGlTM', title: 'Resistance Band Face Pull', channel: 'Jack Fit PT' },
+              { id: 'Q77ORURfeYc', title: 'Band Face Pull (door anchor)', channel: 'Caroline Juster' },
+              { id: 'Qij3pSB-gNk', title: 'Face Pulls w/ Resistance Band', channel: 'BMC Performance' },
+            ],
+          },
+          {
+            id: 'ex-12',
+            arName: 'رفع الكتفين',
+            enName: 'Band Shrugs',
+            target: 'الترابيس (أعلى الظهر والرقبة)',
+            kit: 'TheFitLife (أوزان ثقيلة) أو PROIRON',
+            kitType: 'both',
+            anchor: 'تحت القدمين — ارفع كتافك لفوق ناحية ودنك واثبت ثانية',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: 'OjHqkDWGXlw', title: 'Resistance Band Shrug', channel: 'Nick Forgione' },
+              { id: '_6wJaVW7TyA', title: 'Banded Shrug - Exercise Demo', channel: 'Modern Athlete' },
+              { id: 'aYiZ1_Q7VFw', title: 'Shoulder Shrugs For Bigger Traps', channel: 'Peter Dworak' },
+              { id: 'ztHGfkXOLn0', title: 'RESISTANCE BAND SHRUGS', channel: 'THATLIFESTYLECOACH' },
+              { id: 'XJRLgzGVcMk', title: 'Resistance Band Shrugs', channel: "Goblin's Gym" },
+            ],
+          },
+          {
+            id: 'ex-13',
+            arName: 'بايسبس عادي',
+            enName: 'Bicep Curls',
+            target: 'البايسبس (الرأس القصير والطويل)',
+            kit: 'PROIRON (غلاف واقٍ تحت القدم)',
+            kitType: 'proiron',
+            anchor: 'تحت القدمين — قبضة مفتوحة للأمام',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: '2QAy7DfDmgA', title: 'Standing Bicep Curl Using Resistance Bands', channel: 'Home Gym Fitness' },
+              { id: '20xtfGZ37nw', title: 'Resistance Band Bicep Curl', channel: 'LGN Lyfestile' },
+              { id: 'OUrlYlNqipY', title: 'Resistance Band Bicep Curls', channel: 'PERSIST NUTRITION' },
+              { id: 'LLrNuMHjBsE', title: 'Resistance Band Curls', channel: 'Snap Fitness' },
+              { id: 'PR_Ywz5njy0', title: 'BAND BICEP CURLS', channel: 'Unleashed Strength' },
+            ],
+          },
+          {
+            id: 'ex-14',
+            arName: 'بايسبس مطرقة',
+            enName: 'Hammer Curls',
+            target: 'العضلة الجانبية للدراع + الساعد',
+            kit: 'PROIRON (غلاف واقٍ تحت القدم)',
+            kitType: 'proiron',
+            anchor: 'تحت القدمين — قبضة عمودية (كف إيدك لجوه)',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: '5cahoCIuGuU', title: 'Hammer Curls - Resistance Band', channel: 'VPTFIT' },
+              { id: 'bcond2tqWg0', title: 'Biceps: Resistance Band Hammer Curl', channel: 'Fit Gent' },
+              { id: 'Nai62C7rEbI', title: 'Resistance Band Hammer Curls', channel: 'Fitness Freedom' },
+              { id: '2SjX9lUWWF0', title: 'How to do Resistance Band Hammer Curls', channel: 'Power Foods' },
+              { id: 'c9sY_1EXyvk', title: 'Resistance Band Hammer Curls', channel: 'Undersun Fitness' },
+            ],
+          },
+        ],
+        cooldown: [
+          {
+            id: 'cd-pull-1',
+            arName: 'إطالة المجنص والظهر',
+            enName: "Child's Pose Lat Stretch",
+            reps: '45 ثانية',
+            note: 'افرد يديك للأمام ومِل قليلاً يميناً ويساراً لإطالة جانبي الظهر',
+            videos: [{ id: '2pkLUbN34GI', title: "Child's Pose Lat Stretch", channel: 'Functional Bodybuilding' }],
+          },
+          {
+            id: 'cd-pull-2',
+            arName: 'إطالة البايسبس على الحائط',
+            enName: 'Wall Bicep Stretch',
+            reps: '30ث لكل ذراع',
+            note: 'ضع كف يدك على الحائط ولف صدرك للجهة المعاكسة لإطالة البايسبس والساعد',
+            videos: [{ id: 'BzPzDuIn1PA', title: 'Wall Bicep Stretch', channel: 'LIVESTRONG' }],
+          },
+          {
+            id: 'cd-pull-3',
+            arName: 'التواء العمود الفقري جالساً',
+            enName: 'Seated Spinal Twist',
+            reps: '30ث لكل جهة',
+            note: 'لف جذعك بلطف أثناء الجلوس لفك توتر منتصف وأسفل الظهر',
+            videos: [{ id: 'XFpFHDGDRwI', title: 'Seated Spinal Twist Stretch', channel: 'Hinge Health' }],
+          },
+          {
+            id: 'cd-pull-4',
+            arName: 'إطالة الترابيس والرقبة',
+            enName: 'Upper Trap Stretch',
+            reps: '30ث لكل جهة',
+            note: 'أمل رأسك للجانب بلطف مع إرخاء الكتف المقابل للأسفل',
+            videos: [{ id: 'Ai3mwqK3Y9U', title: 'Upper Trapezius Stretch', channel: 'AMR Physiotherapy' }],
+          },
+        ],
+      },
+      lower: {
+        title: 'يوم الرجلين والبطن (Lower + Core)',
+        subtitle: 'فخذ أمامي وخلفي وداخلي + سمانة + بطن علوي وسفلي وجوانب وثبات',
+        warmup: [
+          {
+            id: 'wu-lower-1',
+            arName: 'مرجحة الرجلين',
+            enName: 'Leg Swings',
+            reps: '12 للأمام + 12 للجانب لكل رجل',
+            note: 'اسند بيدك على الحائط ومرجح رجلك بسهولة لتليين الحوض والفخذين',
+            videos: [{ id: '3l31E2cMGMk', title: 'Leg Swings Dynamic Warmup', channel: 'Sports Rehab Expert' }],
+          },
+          {
+            id: 'wu-lower-2',
+            arName: 'تدوير الحوض',
+            enName: 'Hip Circles',
+            reps: '10 يمين + 10 شمال',
+            note: 'دوائر واسعة بالحوض لتليين أسفل الظهر ومفصل الفخذ',
+            videos: [{ id: 'qkrJXGVj_OQ', title: 'Hip Circles Warmup', channel: 'Live to Move PT' }],
+          },
+          {
+            id: 'wu-lower-3',
+            arName: 'سكوات خفيف بدون حبل',
+            enName: 'Bodyweight Squats',
+            reps: '15 عدة ببطء لتسخين الركبة',
+            note: 'نزول مريح ومتحكم فيه لتنشيط الدورة الدموية في الركبتين والفخذين',
+            videos: [{ id: 'P-yaD24bUE8', title: 'Bodyweight Squats Form', channel: 'Runna' }],
+          },
+          {
+            id: 'wu-lower-4',
+            arName: 'جسر المؤخرة',
+            enName: 'Glute Bridges',
+            reps: '15 عدة لتنشيط الفخذ الخلفي',
+            note: 'ارفع الحوض للأعلى واعصر المؤخرة ثانية قبل النزول',
+            videos: [{ id: 'PhTDzR0TpZs', title: 'Glute Bridges Exercise', channel: 'Hinge Health' }],
+          },
+        ],
+        exercises: [
+          {
+            id: 'ex-15',
+            arName: 'سكوات عادي',
+            enName: 'Band Squats',
+            target: 'الفخذ الأمامي + المؤخرة',
+            kit: 'TheFitLife (أوزان ثقيلة) — على مرتبة تمرين',
+            kitType: 'fitlife',
+            anchor: 'تحت القدمين (بعرض الكتف) والمقابض عند كتفك',
+            setsReps: '4 × 12–15',
+            sets: 4,
+            videos: [
+              { id: 'D-SD9mGJ3Ok', title: 'How To Do Resistance Band Squat', channel: 'Fitness My Life' },
+              { id: '6rE0IYlMPZA', title: 'Resistance band squat', channel: 'BUILT BY FITNESS' },
+              { id: 'S5cTdwO1Trk', title: 'Resistance Band Squat', channel: 'LGN Lyfestile' },
+              { id: 'duP-UZsfOaQ', title: 'How To Do Resistance Band Squat', channel: 'Get Healthy U' },
+              { id: 'KMKF3QBwWGw', title: 'Band Squats', channel: 'Claire DeFitt' },
+            ],
+          },
+          {
+            id: 'ex-16',
+            arName: 'رفعة ميتة رومانية',
+            enName: 'Romanian Deadlift',
+            target: 'الفخذ الخلفي + المؤخرة + أسفل الظهر',
+            kit: 'TheFitLife (أوزان ثقيلة حتى 300 LB)',
+            kitType: 'fitlife',
+            anchor: 'تحت القدمين — ميل بجذعك للأمام وضهرك مفرود تماماً',
+            setsReps: '4 × 12–15',
+            sets: 4,
+            videos: [
+              { id: 'NaKsZos0bIY', title: 'Resistance Band Romanian Deadlifts (RDL)', channel: 'Clear Cut Fitness' },
+              { id: '6jlj3bRgjv8', title: 'Romanian Deadlift (RDL) (Resistance Band)', channel: 'Coach Yash' },
+              { id: 'jaRAR9l1e2o', title: 'Banded Romanian Deadlift Demo', channel: 'RZN Athletics' },
+              { id: 'f6mjOQ7x4tE', title: 'Deadlift with Resistance Bands', channel: 'OneUp Fitness' },
+              { id: 'pA-M4bMn7MM', title: 'Band Romanian Deadlift', channel: 'Charmaine Gaces' },
+            ],
+          },
+          {
+            id: 'ex-17',
+            arName: 'سكوات واسع',
+            enName: 'Sumo Squats',
+            target: 'الفخذ الداخلي + المؤخرة',
+            kit: 'TheFitLife (أوزان ثقيلة) أو PROIRON',
+            kitType: 'both',
+            anchor: 'تحت القدمين (رجليك مفتوحين أوسع والمشط لبره)',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: 'i3FmglWRMfw', title: 'Legs- Resistance band sumo squat', channel: 'Fit2Go PT' },
+              { id: 'PFTtwL6pA-A', title: 'Sumo Squats with Resistance Band', channel: 'iDemandFitness' },
+              { id: '9zS8ckgEt2E', title: 'Resistance band- sumo squats', channel: 'Rylee Counce' },
+              { id: 'EK9BwW3SggI', title: 'Resistance Band Sumo Squat', channel: 'CoachNate' },
+              { id: 'iRoE9zApiCI', title: 'Sumo Squat Resistance bands', channel: 'Gunal Kotian' },
+            ],
+          },
+          {
+            id: 'ex-18',
+            arName: 'سمانة واقف',
+            enName: 'Standing Calf Raises',
+            target: 'عضلة السمانة',
+            kit: 'TheFitLife (أوزان ثقيلة) أو PROIRON',
+            kitType: 'both',
+            anchor: 'تحت القدمين — اطلع على مشط رجلك واثبت ثانية فوق',
+            setsReps: '3 × 15–20',
+            sets: 3,
+            videos: [
+              { id: '-c39P9V64tU', title: 'Resistance Band Standing Calf Raise', channel: 'Home Gym Fitness' },
+              { id: 'a2xjbhP4MkY', title: 'Calf Raise with Resistance Band', channel: 'Fredericksburg Fitness' },
+              { id: 'GskKGzCvpwA', title: 'Banded calf raise', channel: 'BUILT BY FITNESS' },
+              { id: '5NisMKIzJsY', title: 'Weighted Calf Raises - Resistance Band', channel: 'VPTFIT' },
+              { id: 'IobkqSkUg1Y', title: 'Standing Calf Raises with Resistance Band', channel: 'FITASTIC' },
+            ],
+          },
+          {
+            id: 'ex-19',
+            arName: 'بطن سحب للأسفل',
+            enName: 'Kneeling Crunch',
+            target: 'البطن العلوي والوسط',
+            kit: 'TheFitLife (مقاومة متوسطة/ثقيلة)',
+            kitType: 'fitlife',
+            anchor: 'فوق الباب — على ركبتك وضهرك للباب، اثني بطنك لتحت',
+            setsReps: '3 × 15–20',
+            sets: 3,
+            videos: [
+              { id: '6gwfDmlA7QE', title: 'Abs- Resistance band kneeling crunch', channel: 'Fit2Go PT' },
+              { id: 'ZrtLyuY-0L4', title: 'Kneeling Crunch for Six Pack Abs with Resistance Bands', channel: 'Max Krishtul' },
+              { id: 'g3EVVCKsfmw', title: 'How To Do A KNEELING RESISTANCE BAND CRUNCH', channel: 'Live Lean TV' },
+              { id: 'imWlkp8w1I4', title: 'HOW TO DO Kneeling Abs Crunch With Resistance Bands', channel: 'Bodylastics' },
+              { id: 'WRaddjtuhrA', title: 'Resistance Band Kneeling Crunch', channel: 'Dr. Matt Wiest' },
+            ],
+          },
+          {
+            id: 'ex-20',
+            arName: 'رفع الرجلين',
+            enName: 'Lying Leg Raises',
+            target: 'البطن السفلي',
+            kit: 'وزن الجسم (بدون حبل)',
+            kitType: 'bodyweight',
+            anchor: 'على الأرض (بدون حبل) — ارفع رجليك الاتنين سوا وانزل ببطء',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: 'xJJu-WiROM8', title: 'How To Perform The Lying Leg Raise Exercise', channel: 'Dimitri Giankoulas' },
+              { id: 'PkLYH3uRtSs', title: 'How to Actually Train Abs on Lying Leg Raises', channel: 'TylerPath' },
+              { id: '0tzBVqiDwSs', title: 'Lying Leg Raises [Correct Form & Tutorial]', channel: 'Fit Father Project' },
+              { id: '6cKTtcWxvQo', title: 'Lower Abs Leg Raises Form', channel: 'Go with JO' },
+              { id: 'gjZxVEuCUPw', title: 'Fix Leg Raise Mistake', channel: 'Red Delta Project' },
+            ],
+          },
+          {
+            id: 'ex-21',
+            arName: 'تدوير الجذع',
+            enName: 'Russian Twists',
+            target: 'جوانب البطن (Obliques)',
+            kit: 'وزن الجسم (بدون حبل)',
+            kitType: 'bodyweight',
+            anchor: 'على الأرض (بدون حبل) — لف جذعك يمين وشمال بالتبادل',
+            setsReps: '3 × 20 (10 لكل جنب)',
+            sets: 3,
+            videos: [
+              { id: 'wkD8rjkodUI', title: 'How to Do a Russian Twist', channel: 'Howcast' },
+              { id: 'iFQV6q4xRXM', title: 'How to Actually Train the Obliques on Russian Twists', channel: 'TylerPath' },
+              { id: 'aRUMRbl7KS4', title: 'Avoid This Russian Twist Mistake', channel: 'Lean4ever' },
+              { id: '-BzNffL_6YE', title: 'Proper Russian Twists Form', channel: 'ATHLEAN-X' },
+              { id: 'C3RauLi8FNw', title: 'Russian Twist for Beginners', channel: 'Claire DeFitt' },
+            ],
+          },
+          {
+            id: 'ex-22',
+            arName: 'بلانك',
+            enName: 'Forearm Plank',
+            target: 'البطن العميقة وثبات الجذع',
+            kit: 'وزن الجسم (بدون حبل)',
+            kitType: 'bodyweight',
+            anchor: 'على الأرض (بدون حبل) — ارتكاز على الكوعين ومشط الرجل',
+            setsReps: '2 × 45–60 ثانية',
+            sets: 2,
+            videos: [
+              { id: 'UQ78pw0WNZI', title: 'How to do a forearm plank | proper plank form', channel: 'Active Annie' },
+              { id: '3n8ecRuE1dY', title: 'How to plank', channel: 'Oliver Sjostrom' },
+              { id: 'xe2MXatLTUw', title: 'The PERFECT Plank', channel: 'DeltaBolic' },
+              { id: 'F-C0CzNK22s', title: 'Forearm Plank correct position', channel: 'Fitness vlogs' },
+              { id: '3QZlgJ40LfU', title: 'Demonstration of a Forearm Plank', channel: 'Hospital for Special Surgery' },
+            ],
+          },
+        ],
+        cooldown: [
+          {
+            id: 'cd-lower-1',
+            arName: 'إطالة الفخذ الأمامي واقفاً',
+            enName: 'Standing Quad Stretch',
+            reps: '30ث لكل رجل',
+            note: 'اسند على الحائط واسحب قدمك للخلف بلطف مع بقاء الركبتين متقاربتين',
+            videos: [{ id: 'aNXGOpP37CY', title: 'Standing Quad Stretch', channel: 'VIGEO' }],
+          },
+          {
+            id: 'cd-lower-2',
+            arName: 'إطالة الفخذ الخلفي جالساً',
+            enName: 'Seated Hamstring Stretch',
+            reps: '30–45 ثانية',
+            note: 'اجلس وافرد ساقيك للأمام ثم مِل بجذعك بهدوء بظهر مفرود',
+            videos: [{ id: 'u55F2jOzBVI', title: 'Seated Hamstring Stretch', channel: 'MassGeneralHospital' }],
+          },
+          {
+            id: 'cd-lower-3',
+            arName: 'إطالة الفخذ الداخلي',
+            enName: 'Butterfly Stretch',
+            reps: '45 ثانية',
+            note: 'ضم باطني القدمين معاً واضغط بالركبتين بلطف نحو الأرض',
+            videos: [{ id: '4J7kbCmPScQ', title: 'Butterfly Stretch', channel: 'Medibank' }],
+          },
+          {
+            id: 'cd-lower-4',
+            arName: 'إطالة السمانة على الحائط',
+            enName: 'Standing Calf Stretch',
+            reps: '30ث لكل رجل',
+            note: 'ادفع الحائط بيديك وأرجع ساقاً للخلف مع تثبيت الكعب على الأرض',
+            videos: [{ id: 'tUA4MO1kXV8', title: 'Standing Calf Stretch', channel: 'The Running PTs' }],
+          },
+          {
+            id: 'cd-lower-5',
+            arName: 'إطالة البطن - وضعية الكوبرا',
+            enName: 'Cobra Stretch',
+            reps: '30–45 ثانية',
+            note: 'استلقِ على بطنك وارفع صدرك بلطف لإطالة عضلات البطن الأمامية',
+            videos: [{ id: 'JDcdhTuycOI', title: 'Cobra Stretch', channel: 'FitnessBlender' }],
+          },
+        ],
+      },
+    };
+
+    // =========================================================================
+    // 3. إدارة الحالة الموحّدة في localStorage تحت نفس المفتاح للتوافق التام
+    // =========================================================================
+    const STORAGE_KEY = 'proiron_pro_unified_state_v4';
+
+    function getDefaultState() {
+      return {
+        selectedDayIndex: 0,
+        sets: {},       // { 'ex-1': [true, false, false] }
+        warmups: {},    // { 'wu-push-1': true }
+        cooldowns: {},  // { 'cd-push-1': true }
+        bands: {},      // { 'ex-1': '20 LB (أحمر - PROIRON)' }
+        notes: {},      // { 'ex-1': 'المرة الجاية أزود الحبل' }
+        autoRest: true,
+        restPreset: 45,
+      };
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return getDefaultState();
+        const parsed = JSON.parse(raw);
+        return {
+          ...getDefaultState(),
+          ...parsed,
+          sets: parsed.sets && typeof parsed.sets === 'object' ? parsed.sets : {},
+          warmups: parsed.warmups && typeof parsed.warmups === 'object' ? parsed.warmups : {},
+          cooldowns: parsed.cooldowns && typeof parsed.cooldowns === 'object' ? parsed.cooldowns : {},
+          bands: parsed.bands && typeof parsed.bands === 'object' ? parsed.bands : {},
+          notes: parsed.notes && typeof parsed.notes === 'object' ? parsed.notes : {},
+        };
+      } catch (e) {
+        return getDefaultState();
+      }
+    }
+
+    let appState = loadState();
+
+    // حالة الطي والفتح لأقسام الإحماء والإطالات (مطوية افتراضياً لتبقى الشاشة نظيفة)
+    let collapsedSections = {
+      warmup: true,
+      cooldown: true,
+    };
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      } catch (e) {
+        // تجاهل الخطأ في حال تقييد التخزين
+      }
+    }
+
+    // مساعدات المجموعات والإنجاز
+    function getSetArray(ex) {
+      const existing = appState.sets[ex.id];
+      if (Array.isArray(existing) && existing.length === ex.sets) {
+        return existing;
+      }
+      return Array(ex.sets).fill(false);
+    }
+
+    function isExerciseCompleted(ex) {
+      return getSetArray(ex).every(Boolean);
+    }
+
+    function findAnyItemById(itemId) {
+      for (const dayKey of ['push', 'pull', 'lower']) {
+        const d = WORKOUT_DATA[dayKey];
+        const mainEx = d.exercises.find((e) => e.id === itemId);
+        if (mainEx) return { item: mainEx, kind: 'main' };
+        const wu = d.warmup.find((e) => e.id === itemId);
+        if (wu) return { item: wu, kind: 'warmup' };
+        const cd = d.cooldown.find((e) => e.id === itemId);
+        if (cd) return { item: cd, kind: 'cooldown' };
+      }
+      return null;
+    }
+
+    function escapeHtmlAttr(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function getKitBadgeHtml(ex) {
+      const styles = {
+        proiron: {
+          cls: 'bg-amber-500/15 border-amber-500/30 text-amber-300',
+          icon: '🛡️',
+        },
+        fitlife: {
+          cls: 'bg-sky-500/15 border-sky-500/30 text-sky-300',
+          icon: '⚡',
+        },
+        both: {
+          cls: 'bg-violet-500/15 border-violet-500/30 text-violet-300',
+          icon: '🔄',
+        },
+        bodyweight: {
+          cls: 'bg-slate-700/50 border-slate-600/70 text-slate-300',
+          icon: '💪',
+        },
+      };
+      const st = styles[ex.kitType] || styles.both;
+      return `
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl border text-xs font-bold ${st.cls}">
+          <span>${st.icon}</span>
+          <span>الطقم المقترح: ${ex.kit}</span>
+        </span>
+      `;
+    }
+
+    function buildBandSelectOptionsHtml(savedBand) {
+      let html = `<option value="">اختر المقاومة...</option>`;
+      // الحفاظ على أي قيمة قديمة محفوظة من النسخة السابقة لضمان التوافق التام
+      if (savedBand && !ALL_BAND_OPTIONS.includes(savedBand)) {
+        html += `<option value="${escapeHtmlAttr(savedBand)}" selected>${escapeHtmlAttr(savedBand)} (محفوظ سابقاً)</option>`;
+      }
+      BAND_GROUPS.forEach((group) => {
+        html += `<optgroup label="${escapeHtmlAttr(group.label)}">`;
+        group.options.forEach((opt) => {
+          html += `<option value="${escapeHtmlAttr(opt)}" ${savedBand === opt ? 'selected' : ''}>${opt}</option>`;
+        });
+        html += `</optgroup>`;
+      });
+      return html;
+    }
+
+    // إظهار إشعار Toast بدلاً من alert
+    let toastTimer = null;
+    function showToast(message, tone = 'success') {
+      const toast = document.getElementById('toast');
+      const box = document.getElementById('toastBox');
+      const text = document.getElementById('toastText');
+
+      text.textContent = message;
+      const styles = {
+        success: 'bg-emerald-500 text-slate-950 shadow-emerald-500/25',
+        info: 'bg-sky-400 text-slate-950 shadow-sky-400/25',
+        amber: 'bg-amber-400 text-slate-950 shadow-amber-400/25',
+        error: 'bg-rose-500 text-white shadow-rose-500/25',
+      };
+      box.className = `flex items-center justify-center gap-2 px-4 py-3 rounded-2xl font-bold text-sm shadow-2xl ${styles[tone] || styles.success}`;
+
+      toast.classList.remove('opacity-0', '-translate-y-3');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('opacity-0', '-translate-y-3');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 2400);
+    }
+
+    // =========================================================================
+    // 4. رسم الواجهة (الشريط الأسبوعي، التقدم، الإحماء، التمارين، الإطالات، والراحة)
+    // =========================================================================
+    function renderNavigation() {
+      const activeType = WEEKLY_SCHEDULE[appState.selectedDayIndex].type;
+
+      // شريط الأيام الـ 7
+      const weeklyBar = document.getElementById('weeklyBar');
+      weeklyBar.innerHTML = WEEKLY_SCHEDULE.map((item, idx) => {
+        const isSelected = idx === appState.selectedDayIndex;
+        const theme = DAY_THEMES[item.type];
+        const cls = isSelected
+          ? theme.activeDayBtn
+          : 'bg-[#131c31] border-slate-800 text-slate-300 hover:border-slate-700 hover:bg-slate-800/70';
+
+        return `
+          <button
+            type="button"
+            onclick="selectDay(${idx})"
+            class="flex flex-col items-center justify-center px-2.5 py-2.5 rounded-2xl border text-center transition-all cursor-pointer active:scale-[0.98] ${cls}"
+          >
+            <div class="flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full ${theme.dot}"></span>
+              <span class="text-[11px] font-bold opacity-85">${item.day}</span>
+            </div>
+            <span class="text-xs font-extrabold mt-0.5 leading-tight">${item.label}</span>
+          </button>
+        `;
+      }).join('');
+
+      // تبويبات الأقسام السريعة
+      const categoryTabs = document.getElementById('categoryTabs');
+      categoryTabs.innerHTML = CATEGORY_TABS.map((tab) => {
+        const isActive = tab.type === activeType;
+        const theme = DAY_THEMES[tab.type];
+        const cls = isActive
+          ? theme.activeTabBtn
+          : 'bg-[#131c31] border-slate-800 text-slate-300 hover:bg-slate-800/80 hover:border-slate-700';
+
+        return `
+          <button
+            type="button"
+            onclick="selectCategory('${tab.type}')"
+            class="px-3 py-2 rounded-xl border text-xs font-extrabold transition-all cursor-pointer active:scale-[0.98] ${cls}"
+          >
+            ${tab.label}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function updateProgressBarOnly() {
+      const scheduleItem = WEEKLY_SCHEDULE[appState.selectedDayIndex];
+      const dayType = scheduleItem.type;
+      if (dayType === 'rest') return;
+
+      const dayData = WORKOUT_DATA[dayType];
+      const theme = DAY_THEMES[dayType];
+
+      const wuDone = dayData.warmup.filter((w) => appState.warmups[w.id]).length;
+      const exDone = dayData.exercises.filter((ex) => isExerciseCompleted(ex)).length;
+      const cdDone = dayData.cooldown.filter((c) => appState.cooldowns[c.id]).length;
+
+      const totalItems = dayData.warmup.length + dayData.exercises.length + dayData.cooldown.length;
+      const doneItems = wuDone + exDone + cdDone;
+      const percent = totalItems > 0 ? Math.round((doneItems / totalItems) * 100) : 0;
+
+      const progressCount = document.getElementById('progressCount');
+      progressCount.className = `px-3.5 py-1.5 rounded-xl text-sm font-extrabold tabular-nums border ${theme.badge}`;
+      progressCount.textContent = `${doneItems} / ${totalItems}`;
+
+      const fill = document.getElementById('progressBarFill');
+      fill.className = `h-full rounded-full transition-all duration-500 ease-out ${theme.progressFill}`;
+      fill.style.width = `${percent}%`;
+
+      document.getElementById('progressBreakdown').innerHTML = `
+        <span>🔥 الإحماء: <strong class="text-slate-200">${wuDone}/${dayData.warmup.length}</strong></span>
+        <span>💪 التمارين الأساسية: <strong class="text-slate-200">${exDone}/${dayData.exercises.length}</strong></span>
+        <span>🧘‍♂️ الإطالات: <strong class="text-slate-200">${cdDone}/${dayData.cooldown.length}</strong></span>
+      `;
+    }
+
+    function renderCollapsibleChecklist(sectionKey, title, items, stateMap, toggleFnName, accentColor) {
+      const isCollapsed = collapsedSections[sectionKey];
+      const doneCount = items.filter((item) => stateMap[item.id]).length;
+      const allDone = doneCount === items.length;
+
+      const borderAccent =
+        accentColor === 'orange'
+          ? 'border-orange-500/30 hover:border-orange-400/50'
+          : 'border-cyan-500/30 hover:border-cyan-400/50';
+      const badgeAccent = allDone
+        ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/35'
+        : accentColor === 'orange'
+        ? 'bg-orange-500/15 text-orange-300 border-orange-500/30'
+        : 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30';
+
+      const itemsHtml = items
+        .map((item) => {
+          const checked = Boolean(stateMap[item.id]);
+          return `
+            <div class="p-3.5 rounded-2xl border transition-all flex items-start justify-between gap-3 ${
+              checked
+                ? 'bg-emerald-950/20 border-emerald-500/40'
+                : 'bg-[#0b1120] border-slate-800/90'
+            }">
+              <div class="flex items-start gap-3 min-w-0 flex-1">
+                <button
+                  type="button"
+                  onclick="${toggleFnName}('${item.id}')"
+                  aria-label="إتمام ${item.arName}"
+                  class="mt-0.5 w-6 h-6 rounded-lg border-2 flex items-center justify-center shrink-0 transition-all cursor-pointer ${
+                    checked
+                      ? 'bg-emerald-500 border-emerald-400 text-slate-950'
+                      : 'bg-[#131c31] border-slate-600 hover:border-emerald-400 text-transparent'
+                  }"
+                >
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </button>
+
+                <div class="min-w-0 flex-1">
+                  <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                    <h4 class="text-sm font-extrabold ${checked ? 'line-through text-slate-400' : 'text-white'}">
+                      ${item.arName}
+                    </h4>
+                    <span class="text-[11px] font-semibold text-slate-400">${item.enName}</span>
+                  </div>
+                  <div class="mt-1 flex flex-wrap items-center gap-2">
+                    <span class="px-2 py-0.5 rounded-md bg-slate-800/90 border border-slate-700 text-[11px] font-bold text-slate-200">
+                      ${item.reps}
+                    </span>
+                    <span class="text-xs text-slate-400">${item.note}</span>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onclick="openVideoModal('${item.id}', 0)"
+                class="shrink-0 inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-red-600/20 hover:bg-red-600 border border-red-500/35 hover:border-red-500 text-red-300 hover:text-white text-xs font-extrabold transition-all cursor-pointer active:scale-95"
+              >
+                <span>شاهد الفيديو</span>
+                <span class="text-[10px]">▶</span>
+              </button>
+            </div>
+          `;
+        })
+        .join('');
+
+      return `
+        <section class="rounded-2xl bg-[#131c31] border ${borderAccent} shadow-xl overflow-hidden transition-all">
+          <button
+            type="button"
+            onclick="toggleCollapsible('${sectionKey}')"
+            class="w-full px-4 sm:px-5 py-3.5 flex items-center justify-between gap-3 text-right cursor-pointer hover:bg-slate-800/40 transition-colors"
+          >
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <span class="text-sm sm:text-base font-extrabold text-white">${title}</span>
+              <span class="px-2.5 py-0.5 rounded-lg border text-xs font-extrabold tabular-nums ${badgeAccent}">
+                ${doneCount}/${items.length}
+              </span>
+            </div>
+            <div class="flex items-center gap-1.5 text-xs font-bold text-slate-400 shrink-0">
+              <span>${isCollapsed ? 'عرض' : 'إخفاء'}</span>
+              <svg class="w-5 h-5 transition-transform duration-300 ${isCollapsed ? '' : 'rotate-180'}" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </button>
+
+          <div class="${isCollapsed ? 'hidden' : 'block'} px-4 sm:px-5 pb-4 pt-1 border-t border-slate-800/80 space-y-2.5">
+            ${itemsHtml}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderMainContent() {
+      const scheduleItem = WEEKLY_SCHEDULE[appState.selectedDayIndex];
+      const dayType = scheduleItem.type;
+      const theme = DAY_THEMES[dayType];
+      const progressSection = document.getElementById('progressSection');
+      const contentArea = document.getElementById('contentArea');
+
+      if (dayType === 'rest') {
+        progressSection.classList.add('hidden');
+        renderRestDayCard(contentArea);
+        return;
+      }
+
+      progressSection.classList.remove('hidden');
+      const dayData = WORKOUT_DATA[dayType];
+
+      const dayBadge = document.getElementById('dayBadge');
+      dayBadge.className = `px-2.5 py-0.5 rounded-lg text-[11px] font-extrabold ${theme.badge}`;
+      dayBadge.textContent = `${scheduleItem.day} • ${theme.tagText}`;
+
+      document.getElementById('dayTitle').textContent = dayData.title;
+      document.getElementById('daySubtitle').textContent = dayData.subtitle;
+      updateProgressBarOnly();
+
+      // 1. قسم الإحماء القابل للطي
+      const warmupHtml = renderCollapsibleChecklist(
+        'warmup',
+        '🔥 الإحماء قبل التمرين (5 دقايق)',
+        dayData.warmup,
+        appState.warmups,
+        'toggleWarmup',
+        'orange'
+      );
+
+      // 2. بطاقات التمارين الأساسية (عمود واحد للموبايل، وعمودين للشاشات >= 900px)
+      const exercisesHtml = dayData.exercises
+        .map((ex, idx) => {
+          const setStates = getSetArray(ex);
+          const isDone = setStates.every(Boolean);
+          const savedBand = appState.bands[ex.id] || '';
+          const savedNote = appState.notes[ex.id] || '';
+
+          const cardStyle = isDone
+            ? 'bg-emerald-950/20 border-emerald-500/45 shadow-emerald-500/5'
+            : 'bg-[#131c31] border-slate-800/90 hover:border-slate-700';
+
+          const bandOptionsHtml = buildBandSelectOptionsHtml(savedBand);
+
+          // دوائر المجموعات التفاعلية (Set Tracker Circles)
+          const setCirclesHtml = setStates
+            .map((done, sIdx) => {
+              const circleCls = done
+                ? theme.setDoneBtn
+                : 'bg-[#0b1120] border-slate-700 text-slate-300 hover:border-slate-500';
+              return `
+                <button
+                  type="button"
+                  onclick="toggleSet('${ex.id}', ${sIdx})"
+                  aria-label="المجموعة ${sIdx + 1}"
+                  class="w-9 h-9 rounded-full border-2 font-black text-xs flex items-center justify-center transition-all cursor-pointer active:scale-90 ${circleCls}"
+                >
+                  ${done ? '✓' : sIdx + 1}
+                </button>
+              `;
+            })
+            .join('');
+
+          // أزرار الـ 5 فيديوهات السريعة (تفتح داخل نفس الصفحة)
+          const fivePillsHtml = ex.videos
+            .map(
+              (_, vIdx) => `
+                <button
+                  type="button"
+                  onclick="openVideoModal('${ex.id}', ${vIdx})"
+                  class="py-2 px-1 rounded-xl bg-[#0b1120] hover:bg-red-600/20 border border-slate-800 hover:border-red-500/50 text-slate-300 hover:text-red-300 text-xs font-extrabold transition-all cursor-pointer active:scale-95 text-center"
+                >
+                  ${vIdx + 1}
+                </button>
+              `
+            )
+            .join('');
+
+          return `
+            <article class="rounded-2xl border p-4 sm:p-5 shadow-lg transition-all duration-200 flex flex-col justify-between ${cardStyle}">
+              <div>
+                <!-- الرأس: مربع الإتمام + اسم التمرين + العدات -->
+                <div class="flex items-start gap-3">
+                  <button
+                    type="button"
+                    onclick="toggleWholeExercise('${ex.id}')"
+                    aria-label="إتمام التمرين بالكامل"
+                    class="mt-0.5 w-7 h-7 rounded-xl border-2 flex items-center justify-center shrink-0 transition-all cursor-pointer ${
+                      isDone
+                        ? 'bg-emerald-500 border-emerald-400 text-slate-950 scale-105 shadow-md shadow-emerald-500/25'
+                        : 'bg-[#0b1120] border-slate-600 hover:border-emerald-400 text-transparent'
+                    }"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </button>
+
+                  <div class="flex-1 min-w-0">
+                    <div class="flex flex-wrap items-start justify-between gap-2">
+                      <div class="min-w-0">
+                        <div class="flex items-center gap-2 flex-wrap">
+                          <span class="inline-flex items-center justify-center w-6 h-6 rounded-lg text-xs font-extrabold ${theme.numberBg}">
+                            ${idx + 1}
+                          </span>
+                          <h3 class="text-base sm:text-lg font-extrabold leading-snug ${
+                            isDone ? 'line-through text-slate-400' : 'text-white'
+                          }">
+                            ${ex.arName}
+                          </h3>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-400 font-semibold mt-0.5">${ex.enName}</p>
+                      </div>
+
+                      <span class="inline-flex items-center px-3 py-1 rounded-xl border text-xs font-extrabold shrink-0 ${theme.setsBadge}">
+                        ${ex.setsReps}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- المنطقة المستهدفة + الطقم المقترح + التثبيت -->
+                <div class="mt-3 space-y-2">
+                  <div class="flex flex-wrap items-center gap-1.5">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 text-xs font-bold">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                      ${ex.target}
+                    </span>
+                    ${getKitBadgeHtml(ex)}
+                  </div>
+
+                  <div class="p-3 rounded-xl bg-[#0b1120] border border-slate-800/90 text-xs sm:text-sm text-slate-300 leading-relaxed flex items-start gap-2">
+                    <svg class="w-4 h-4 text-amber-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span><strong class="text-white">التثبيت:</strong> ${ex.anchor}</span>
+                  </div>
+                </div>
+
+                <!-- متابع المجموعات التفاعلي (Set Tracker) -->
+                <div class="mt-3 p-3 rounded-xl bg-[#0b1120]/80 border border-slate-800/80 flex flex-wrap items-center justify-between gap-2">
+                  <span class="text-xs font-bold text-slate-300">المجموعات (اضغط لبدء الراحة):</span>
+                  <div class="flex items-center gap-2">
+                    ${setCirclesHtml}
+                  </div>
+                </div>
+
+                <!-- اختيار مقاومة حبال PROIRON و TheFitLife + خانة الملاحظة السريعة -->
+                <div class="mt-3 space-y-2">
+                  <div class="flex items-center gap-2">
+                    <label for="band-${ex.id}" class="text-xs font-bold text-slate-400 shrink-0">الحبل:</label>
+                    <select
+                      id="band-${ex.id}"
+                      onchange="saveBandWeight('${ex.id}', this.value)"
+                      class="flex-1 px-3 py-2 rounded-xl bg-[#0b1120] border border-slate-700/90 focus:border-sky-400 focus:outline-none text-xs sm:text-sm font-bold text-slate-100 cursor-pointer"
+                    >
+                      ${bandOptionsHtml}
+                    </select>
+                  </div>
+
+                  <input
+                    type="text"
+                    value="${escapeHtmlAttr(savedNote)}"
+                    oninput="saveExerciseNote('${ex.id}', this.value)"
+                    placeholder="ملاحظة سريعة (مثلاً: المرة الجاية أزود الحبل)..."
+                    class="w-full px-3 py-2 rounded-xl bg-[#0b1120] border border-slate-800 focus:border-amber-400/70 focus:outline-none text-xs text-slate-200 placeholder-slate-500"
+                  />
+                </div>
+              </div>
+
+              <!-- أزرار مكتبة الفيديوهات (5) + 5 أزرار سريعة -->
+              <div class="mt-4 pt-3.5 border-t border-slate-800/80 space-y-2.5">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <button
+                    type="button"
+                    onclick="openVideoModal('${ex.id}', 0)"
+                    class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 active:scale-[0.98] text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-red-600/20 transition-all cursor-pointer w-full sm:w-auto"
+                  >
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                    </svg>
+                    مكتبة الفيديوهات (5)
+                  </button>
+
+                  ${
+                    isDone
+                      ? '<span class="text-xs font-extrabold text-emerald-400">✓ مكتمل</span>'
+                      : '<span class="text-[11px] font-semibold text-slate-500">فيديو سريع (1–5):</span>'
+                  }
+                </div>
+
+                <div class="grid grid-cols-5 gap-1.5">
+                  ${fivePillsHtml}
+                </div>
+              </div>
+            </article>
+          `;
+        })
+        .join('');
+
+      // 3. قسم الإطالات والتهدئة القابل للطي
+      const cooldownHtml = renderCollapsibleChecklist(
+        'cooldown',
+        '🧘‍♂️ الإطالات والتهدئة بعد التمرين (5–8 دقايق)',
+        dayData.cooldown,
+        appState.cooldowns,
+        'toggleCooldown',
+        'cyan'
+      );
+
+      contentArea.innerHTML = `
+        ${warmupHtml}
+        <section class="grid grid-cols-1 min-[900px]:grid-cols-2 gap-4">
+          ${exercisesHtml}
+        </section>
+        ${cooldownHtml}
+      `;
+    }
+
+    function renderRestDayCard(container) {
+      container.innerHTML = `
+        <div class="rounded-3xl bg-gradient-to-br from-violet-500/15 via-[#131c31] to-[#131c31] border border-violet-500/35 p-6 sm:p-8 shadow-2xl">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-5">
+            <div class="w-14 h-14 rounded-2xl bg-violet-500/20 border border-violet-400/40 flex items-center justify-center text-violet-300 shrink-0">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+              </svg>
+            </div>
+            <div>
+              <span class="px-3 py-1 rounded-full bg-violet-500/20 border border-violet-500/35 text-violet-300 text-xs font-extrabold">
+                يوم 4 • استشفاء عضلي نشط (Active Recovery)
+              </span>
+              <h2 class="text-xl sm:text-2xl font-black text-white mt-2">يوم الراحة وإعادة بناء العضلات</h2>
+            </div>
+          </div>
+
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed mb-6">
+            العضلات تُبنى وتُشد خلال فترات الراحة والنوم! هذا اليوم يفصل بين أول 3 أيام تمرين وثاني 3 أيام لتجديد طاقتك والعودة أقوى.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+            <div class="p-4 rounded-2xl bg-[#0b1120] border border-slate-800">
+              <div class="text-violet-400 font-extrabold text-sm mb-1">🚶 مشي خفيف</div>
+              <p class="text-xs text-slate-400 leading-relaxed">20 إلى 30 دقيقة مشي مريح لتنشيط الدورة الدموية وحرق سعرات إضافية بدون إجهاد.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-[#0b1120] border border-slate-800">
+              <div class="text-emerald-400 font-extrabold text-sm mb-1">💧 شرب الماء</div>
+              <p class="text-xs text-slate-400 leading-relaxed">حافظ على 2.5 – 3 لتر ماء وبروتين كافٍ لدعم الاستشفاء العضلي.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-[#0b1120] border border-slate-800">
+              <div class="text-sky-400 font-extrabold text-sm mb-1">😴 نوم جيد</div>
+              <p class="text-xs text-slate-400 leading-relaxed">7 إلى 8 ساعات نوم عميق هي الوقود الأساسي لبناء العضل وحرق الدهون.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-[#0b1120] border border-slate-800">
+              <div class="text-amber-400 font-extrabold text-sm mb-1">🧘 إطالات خفيفة</div>
+              <p class="text-xs text-slate-400 leading-relaxed">10 دقائق إطالة هادئة للظهر والكتف والأرجل لفك أي شد عضلي.</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // 5. أحداث التفاعل (الأيام، المجموعات، الراحة التلقائية، الإحماء، الإطالات، الملاحظات)
+    // =========================================================================
+    window.selectDay = function (idx) {
+      appState.selectedDayIndex = idx;
+      saveState();
+      renderNavigation();
+      renderMainContent();
+    };
+
+    window.selectCategory = function (type) {
+      const currentType = WEEKLY_SCHEDULE[appState.selectedDayIndex].type;
+      if (currentType === type) return;
+      const tab = CATEGORY_TABS.find((t) => t.type === type);
+      if (tab) {
+        appState.selectedDayIndex = tab.defaultDayIdx;
+        saveState();
+        renderNavigation();
+        renderMainContent();
+      }
+    };
+
+    window.toggleCollapsible = function (sectionKey) {
+      collapsedSections[sectionKey] = !collapsedSections[sectionKey];
+      renderMainContent();
+    };
+
+    window.toggleWarmup = function (wuId) {
+      appState.warmups[wuId] = !appState.warmups[wuId];
+      saveState();
+      renderMainContent();
+    };
+
+    window.toggleCooldown = function (cdId) {
+      appState.cooldowns[cdId] = !appState.cooldowns[cdId];
+      saveState();
+      renderMainContent();
+    };
+
+    window.toggleSet = function (exId, setIdx) {
+      const found = findAnyItemById(exId);
+      if (!found || found.kind !== 'main') return;
+      const ex = found.item;
+
+      const arr = [...getSetArray(ex)];
+      const wasDone = arr[setIdx];
+      arr[setIdx] = !wasDone;
+      appState.sets[ex.id] = arr;
+      saveState();
+      renderMainContent();
+
+      // عند تحديد مجموعة جديدة كـ "تم" وتشغيل خيار الراحة التلقائية، يبدأ المؤقت فوراً
+      if (!wasDone && appState.autoRest) {
+        triggerAutoRestTimer();
+      }
+
+      // تهنئة عند إتمام جميع عناصر اليوم
+      checkAllDayCompleted();
+    };
+
+    window.toggleWholeExercise = function (exId) {
+      const found = findAnyItemById(exId);
+      if (!found || found.kind !== 'main') return;
+      const ex = found.item;
+
+      const currentlyDone = isExerciseCompleted(ex);
+      appState.sets[ex.id] = Array(ex.sets).fill(!currentlyDone);
+      saveState();
+      renderMainContent();
+
+      if (!currentlyDone) {
+        checkAllDayCompleted();
+      }
+    };
+
+    function checkAllDayCompleted() {
+      const dayType = WEEKLY_SCHEDULE[appState.selectedDayIndex].type;
+      const dayData = WORKOUT_DATA[dayType];
+      if (!dayData) return;
+
+      const allExDone = dayData.exercises.every((ex) => isExerciseCompleted(ex));
+      const allWuDone = dayData.warmup.every((w) => appState.warmups[w.id]);
+      const allCdDone = dayData.cooldown.every((c) => appState.cooldowns[c.id]);
+
+      if (allExDone && allWuDone && allCdDone) {
+        showToast('عاش يا بطل! أتممت الحصة كاملة بالإحماء والإطالات', 'success');
+      }
+    }
+
+    window.saveBandWeight = function (exId, weightValue) {
+      if (weightValue) {
+        appState.bands[exId] = weightValue;
+        showToast(`تم حفظ المقاومة: ${weightValue}`, 'info');
+      } else {
+        delete appState.bands[exId];
+      }
+      saveState();
+    };
+
+    window.saveExerciseNote = function (exId, noteText) {
+      if (noteText && noteText.trim().length > 0) {
+        appState.notes[exId] = noteText;
+      } else {
+        delete appState.notes[exId];
+      }
+      saveState();
+    };
+
+    document.getElementById('resetDayBtn').addEventListener('click', () => {
+      const dayType = WEEKLY_SCHEDULE[appState.selectedDayIndex].type;
+      const dayData = WORKOUT_DATA[dayType];
+      if (!dayData) return;
+
+      dayData.warmup.forEach((w) => delete appState.warmups[w.id]);
+      dayData.exercises.forEach((ex) => delete appState.sets[ex.id]);
+      dayData.cooldown.forEach((c) => delete appState.cooldowns[c.id]);
+      saveState();
+      renderMainContent();
+      showToast('تم تصفير تقدم هذا اليوم بالكامل', 'amber');
+    });
+
+    // =========================================================================
+    // 6. عداد وقت الحصة الإجمالي (Session Stopwatch في الترويسة)
+    // =========================================================================
+    let sessionSeconds = 0;
+    let sessionInterval = null;
+    let sessionRunning = false;
+
+    const sessionDisplay = document.getElementById('sessionDisplay');
+    const sessionToggleBtn = document.getElementById('sessionToggleBtn');
+    const sessionToggleText = document.getElementById('sessionToggleText');
+    const sessionIcon = document.getElementById('sessionIcon');
+    const sessionResetBtn = document.getElementById('sessionResetBtn');
+
+    function formatStopwatch(totalSec) {
+      const hrs = Math.floor(totalSec / 3600);
+      const mins = Math.floor((totalSec % 3600) / 60);
+      const secs = totalSec % 60;
+      const mm = String(mins).padStart(2, '0');
+      const ss = String(secs).padStart(2, '0');
+      return hrs > 0 ? `${String(hrs).padStart(2, '0')}:${mm}:${ss}` : `${mm}:${ss}`;
+    }
+
+    function updateSessionUI() {
+      sessionDisplay.textContent = formatStopwatch(sessionSeconds);
+      if (sessionRunning) {
+        sessionToggleText.textContent = 'إيقاف مؤقت';
+        sessionToggleBtn.classList.remove('bg-emerald-500', 'hover:bg-emerald-400');
+        sessionToggleBtn.classList.add('bg-amber-400', 'hover:bg-amber-300');
+        sessionIcon.innerHTML = '<path d="M6 5h4v14H6zm8 0h4v14h-4z" />';
+      } else {
+        sessionToggleText.textContent = sessionSeconds > 0 ? 'متابعة التمرين' : 'ابدأ التمرين';
+        sessionToggleBtn.classList.add('bg-emerald-500', 'hover:bg-emerald-400');
+        sessionToggleBtn.classList.remove('bg-amber-400', 'hover:bg-amber-300');
+        sessionIcon.innerHTML = '<path d="M8 5v14l11-7z" />';
+      }
+    }
+
+    sessionToggleBtn.addEventListener('click', () => {
+      if (sessionRunning) {
+        clearInterval(sessionInterval);
+        sessionInterval = null;
+        sessionRunning = false;
+      } else {
+        sessionRunning = true;
+        sessionInterval = setInterval(() => {
+          sessionSeconds++;
+          sessionDisplay.textContent = formatStopwatch(sessionSeconds);
+        }, 1000);
+      }
+      updateSessionUI();
+    });
+
+    sessionResetBtn.addEventListener('click', () => {
+      clearInterval(sessionInterval);
+      sessionInterval = null;
+      sessionRunning = false;
+      sessionSeconds = 0;
+      updateSessionUI();
+    });
+
+    // =========================================================================
+    // 7. نافذة مكتبة الفيديوهات المدمجة (تشغيل فوري داخل الصفحة على اللابتوب والموبايل)
+    // =========================================================================
+    const videoModal = document.getElementById('videoModal');
+    const modalYoutubeIframe = document.getElementById('modalYoutubeIframe');
+
+    let currentModalItem = null;
+    let currentModalVideoIdx = 0;
+
+    window.openVideoModal = function (itemId, videoIdx = 0) {
+      const found = findAnyItemById(itemId);
+      if (!found) return;
+
+      currentModalItem = found.item;
+      currentModalVideoIdx = videoIdx;
+      const totalVids = currentModalItem.videos.length;
+
+      document.getElementById('modalLibraryBadge').textContent =
+        totalVids > 1 ? `مكتبة الفيديوهات (${totalVids})` : 'فيديو توضيحي';
+      document.getElementById('modalExerciseAr').textContent = currentModalItem.arName;
+      document.getElementById('modalExerciseEn').textContent = currentModalItem.enName;
+
+      if (found.kind === 'main') {
+        document.getElementById('modalContextLabel').textContent = 'التثبيت والوضعية:';
+        document.getElementById('modalAnchorText').textContent = currentModalItem.anchor;
+      } else {
+        document.getElementById('modalContextLabel').textContent = 'طريقة الأداء:';
+        document.getElementById('modalAnchorText').textContent = `${currentModalItem.reps} — ${currentModalItem.note}`;
+      }
+
+      updateModalVideoSelection(videoIdx);
+
+      videoModal.classList.remove('hidden');
+      videoModal.classList.add('flex');
+      document.body.classList.add('modal-open');
+    };
+
+    window.switchModalVideo = function (videoIdx) {
+      if (!currentModalItem) return;
+      currentModalVideoIdx = videoIdx;
+      updateModalVideoSelection(videoIdx);
+    };
+
+    function updateModalVideoSelection(videoIdx) {
+      const videos = currentModalItem.videos;
+      const video = videos[videoIdx];
+      if (!video) return;
+
+      const embedUrl = `https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0&playsinline=1&modestbranding=1`;
+      const watchUrl = `https://www.youtube.com/watch?v=${video.id}`;
+      const badgeStr = `فيديو ${videoIdx + 1} من ${videos.length}`;
+
+      // تشغيل الفيديو مباشرة داخل المشغل المدمج
+      modalYoutubeIframe.src = embedUrl;
+      modalYoutubeIframe.title = video.title;
+
+      // تحديث البيانات والرابط البديل الثانوي
+      document.getElementById('openExternalYoutube').href = watchUrl;
+      document.getElementById('activeVideoBadge').textContent = badgeStr;
+      document.getElementById('activeVideoChannel').textContent = video.channel;
+      document.getElementById('activeVideoTitle').textContent = video.title;
+
+      const listContainer = document.getElementById('modalVideoList');
+      document.getElementById('modalVideoListHeading').textContent =
+        videos.length > 1 ? `جميع الفيديوهات المتاحة لهذا التمرين (${videos.length}):` : 'الفيديو التوضيحي:';
+
+      listContainer.innerHTML = videos
+        .map((v, i) => {
+          const active = i === videoIdx;
+          const mqThumb = `https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`;
+          const rowClass = active
+            ? 'bg-emerald-500/15 border-emerald-400/70 shadow-md shadow-emerald-500/10'
+            : 'bg-[#0b1120] border-slate-800 hover:border-slate-600 hover:bg-slate-800/50';
+
+          return `
+            <div
+              onclick="switchModalVideo(${i})"
+              role="button"
+              tabindex="0"
+              class="flex items-center gap-2.5 p-2 rounded-2xl border transition-all cursor-pointer ${rowClass}"
+            >
+              <div class="relative w-20 sm:w-24 aspect-video rounded-xl overflow-hidden bg-slate-900 shrink-0 border border-slate-700/70">
+                <img
+                  src="${mqThumb}"
+                  alt="${escapeHtmlAttr(v.title)}"
+                  loading="lazy"
+                  class="w-full h-full object-cover"
+                  onerror="this.onerror=null;this.src='https://placehold.co/320x180/131c31/94a3b8?text=Video+${i + 1}';"
+                />
+                <span class="absolute top-1 right-1 w-5 h-5 rounded-md text-[10px] font-extrabold flex items-center justify-center ${
+                  active ? 'bg-emerald-500 text-slate-950' : 'bg-black/80 text-white'
+                }">
+                  ${i + 1}
+                </span>
+              </div>
+
+              <div class="min-w-0 flex-1 text-right">
+                <div class="flex items-center gap-2">
+                  <span class="text-[11px] font-bold ${active ? 'text-emerald-300' : 'text-slate-400'} truncate">
+                    ${v.channel}
+                  </span>
+                  ${active ? '<span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-extrabold shrink-0">يعمل الآن ▶</span>' : ''}
+                </div>
+                <div class="text-xs font-bold text-white leading-snug mt-0.5 line-clamp-2" dir="ltr" style="text-align: right;">
+                  ${v.title}
+                </div>
+              </div>
+
+              <div class="p-2 rounded-xl ${active ? 'bg-emerald-500 text-slate-950' : 'bg-slate-800 text-slate-300'} shrink-0 flex items-center justify-center">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+          `;
+        })
+        .join('');
+    }
+
+    function closeVideoModal() {
+      // إيقاف الصوت والفيديو تماماً عند إغلاق النافذة
+      modalYoutubeIframe.src = '';
+      videoModal.classList.add('hidden');
+      videoModal.classList.remove('flex');
+      document.body.classList.remove('modal-open');
+    }
+
+    document.getElementById('closeVideoModalBtn').addEventListener('click', closeVideoModal);
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) closeVideoModal();
+    });
+
+    // =========================================================================
+    // 8. نافذة القواعد + نافذة نقل البيانات (Export / Import JSON)
+    // =========================================================================
+    const rulesModal = document.getElementById('rulesModal');
+    const syncModal = document.getElementById('syncModal');
+    const exportJsonText = document.getElementById('exportJsonText');
+    const importJsonText = document.getElementById('importJsonText');
+
+    function openModal(el) {
+      el.classList.remove('hidden');
+      el.classList.add('flex');
+      document.body.classList.add('modal-open');
+    }
+
+    function closeModal(el) {
+      el.classList.add('hidden');
+      el.classList.remove('flex');
+      document.body.classList.remove('modal-open');
+    }
+
+    document.getElementById('openRulesBtn').addEventListener('click', () => openModal(rulesModal));
+    document.getElementById('closeRulesModalBtn').addEventListener('click', () => closeModal(rulesModal));
+    rulesModal.addEventListener('click', (e) => {
+      if (e.target === rulesModal) closeModal(rulesModal);
+    });
+
+    document.getElementById('openSyncBtn').addEventListener('click', () => {
+      exportJsonText.value = JSON.stringify(appState, null, 2);
+      importJsonText.value = '';
+      openModal(syncModal);
+    });
+    document.getElementById('closeSyncModalBtn').addEventListener('click', () => closeModal(syncModal));
+    syncModal.addEventListener('click', (e) => {
+      if (e.target === syncModal) closeModal(syncModal);
+    });
+
+    // نسخ JSON باستخدام document.execCommand('copy') لضمان التوافق داخل iFrame والموبايل
+    document.getElementById('copyJsonBtn').addEventListener('click', () => {
+      try {
+        exportJsonText.focus();
+        exportJsonText.select();
+        exportJsonText.setSelectionRange(0, 999999);
+        const copied = document.execCommand('copy');
+        if (copied) {
+          showToast('تم نسخ كود البيانات بنجاح!', 'success');
+        } else {
+          showToast('حدد النص يدوياً وانسخه', 'amber');
+        }
+      } catch (err) {
+        showToast('تعذر النسخ التلقائي، انسخ النص يدوياً', 'amber');
+      }
+    });
+
+    // تحميل ملف .json
+    document.getElementById('downloadJsonBtn').addEventListener('click', () => {
+      try {
+        const blob = new Blob([JSON.stringify(appState, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `proiron_thefitlife_backup_${new Date().toISOString().slice(0, 10)}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('تم تحميل ملف النسخة الاحتياطية', 'info');
+      } catch (err) {
+        showToast('حدث خطأ أثناء تحميل الملف', 'error');
+      }
+    });
+
+    function applyImportedJson(rawText) {
+      try {
+        const parsed = JSON.parse(rawText);
+        if (!parsed || typeof parsed !== 'object') {
+          throw new Error('صيغة غير صالحة');
+        }
+        appState = {
+          ...getDefaultState(),
+          ...parsed,
+          sets: parsed.sets && typeof parsed.sets === 'object' ? parsed.sets : {},
+          warmups: parsed.warmups && typeof parsed.warmups === 'object' ? parsed.warmups : {},
+          cooldowns: parsed.cooldowns && typeof parsed.cooldowns === 'object' ? parsed.cooldowns : {},
+          bands: parsed.bands && typeof parsed.bands === 'object' ? parsed.bands : {},
+          notes: parsed.notes && typeof parsed.notes === 'object' ? parsed.notes : {},
+        };
+        saveState();
+        syncTimerFromState();
+        renderNavigation();
+        renderMainContent();
+        closeModal(syncModal);
+        showToast('تم استيراد بياناتك ومزامنتها بنجاح!', 'success');
+      } catch (err) {
+        showToast('كود JSON غير صالح، تأكد من نسخه بالكامل', 'error');
+      }
+    }
+
+    document.getElementById('pasteImportBtn').addEventListener('click', () => {
+      const val = importJsonText.value.trim();
+      if (!val) {
+        showToast('الصق كود JSON أولاً في الخانة', 'amber');
+        return;
+      }
+      applyImportedJson(val);
+    });
+
+    document.getElementById('uploadJsonInput').addEventListener('change', (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        applyImportedJson(String(ev.target.result || ''));
+        e.target.value = '';
+      };
+      reader.readAsText(file);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (!videoModal.classList.contains('hidden')) closeVideoModal();
+        if (!rulesModal.classList.contains('hidden')) closeModal(rulesModal);
+        if (!syncModal.classList.contains('hidden')) closeModal(syncModal);
+      }
+    });
+
+    // =========================================================================
+    // 9. مؤقت الراحة العائم (45 / 60 / 90 ثانية + تشغيل تلقائي + تنبيه Web Audio API)
+    // =========================================================================
+    let remainingSeconds = appState.restPreset || 45;
+    let timerInterval = null;
+    let isTimerRunning = false;
+
+    const timerDisplay = document.getElementById('timerDisplay');
+    const timerToggleBtn = document.getElementById('timerToggleBtn');
+    const timerToggleText = document.getElementById('timerToggleText');
+    const timerPlayIcon = document.getElementById('timerPlayIcon');
+    const timerResetBtn = document.getElementById('timerResetBtn');
+    const timerCard = document.getElementById('timerCard');
+    const presetButtons = document.querySelectorAll('.preset-btn');
+    const autoRestToggleBtn = document.getElementById('autoRestToggleBtn');
+    const autoRestDot = document.getElementById('autoRestDot');
+
+    function formatCountdown(sec) {
+      const m = String(Math.floor(sec / 60)).padStart(2, '0');
+      const s = String(sec % 60).padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    function updatePresetButtonsUI() {
+      presetButtons.forEach((b) => {
+        const active = Number(b.dataset.preset) === Number(appState.restPreset);
+        b.className = active
+          ? 'preset-btn px-2.5 py-1.5 rounded-xl text-xs font-extrabold border transition-all cursor-pointer bg-sky-500/20 border-sky-400/60 text-sky-300'
+          : 'preset-btn px-2.5 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700';
+      });
+    }
+
+    function updateAutoRestUI() {
+      if (appState.autoRest) {
+        autoRestToggleBtn.className =
+          'inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-[11px] font-extrabold transition-all cursor-pointer active:scale-95 bg-emerald-500/15 border-emerald-400/50 text-emerald-300';
+        autoRestDot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-400';
+      } else {
+        autoRestToggleBtn.className =
+          'inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-[11px] font-bold transition-all cursor-pointer active:scale-95 bg-slate-800 border-slate-700 text-slate-400';
+        autoRestDot.className = 'w-2.5 h-2.5 rounded-full bg-slate-500';
+      }
+    }
+
+    function updateTimerUI() {
+      timerDisplay.textContent = formatCountdown(remainingSeconds);
+      if (isTimerRunning) {
+        timerToggleText.textContent = 'إيقاف';
+        timerToggleBtn.classList.remove('bg-emerald-500', 'hover:bg-emerald-400');
+        timerToggleBtn.classList.add('bg-amber-400', 'hover:bg-amber-300');
+        timerPlayIcon.innerHTML = '<path d="M6 5h4v14H6zm8 0h4v14h-4z" />';
+      } else {
+        timerToggleText.textContent = 'ابدأ';
+        timerToggleBtn.classList.add('bg-emerald-500', 'hover:bg-emerald-400');
+        timerToggleBtn.classList.remove('bg-amber-400', 'hover:bg-amber-300');
+        timerPlayIcon.innerHTML = '<path d="M8 5v14l11-7z" />';
+      }
+    }
+
+    function playChimeAlert() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const now = ctx.currentTime;
+
+        [0, 0.22, 0.44].forEach((offset, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(i === 2 ? 1046 : 880, now + offset);
+          gain.gain.setValueAtTime(0.18, now + offset);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + offset + 0.18);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + offset);
+          osc.stop(now + offset + 0.19);
+        });
+      } catch (err) {
+        // تجاهل الخطأ إن لم يسمح المتصفح بالصوت
+      }
+    }
+
+    function stopRestTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      isTimerRunning = false;
+      updateTimerUI();
+    }
+
+    function startRestTimer() {
+      if (remainingSeconds <= 0) remainingSeconds = appState.restPreset;
+      isTimerRunning = true;
+      updateTimerUI();
+
+      timerInterval = setInterval(() => {
+        remainingSeconds--;
+        updateTimerUI();
+
+        if (remainingSeconds <= 0) {
+          stopRestTimer();
+          playChimeAlert();
+          showToast('انتهى وقت الراحة! ادخل على المجموعة التالية', 'success');
+
+          timerCard.classList.add('timer-flash');
+          setTimeout(() => {
+            timerCard.classList.remove('timer-flash');
+            remainingSeconds = appState.restPreset;
+            updateTimerUI();
+          }, 2100);
+        }
+      }, 1000);
+    }
+
+    function triggerAutoRestTimer() {
+      stopRestTimer();
+      remainingSeconds = appState.restPreset;
+      startRestTimer();
+    }
+
+    function syncTimerFromState() {
+      stopRestTimer();
+      remainingSeconds = appState.restPreset || 45;
+      updatePresetButtonsUI();
+      updateAutoRestUI();
+      updateTimerUI();
+    }
+
+    timerToggleBtn.addEventListener('click', () => {
+      if (isTimerRunning) stopRestTimer();
+      else startRestTimer();
+    });
+
+    timerResetBtn.addEventListener('click', () => {
+      stopRestTimer();
+      remainingSeconds = appState.restPreset;
+      updateTimerUI();
+    });
+
+    autoRestToggleBtn.addEventListener('click', () => {
+      appState.autoRest = !appState.autoRest;
+      saveState();
+      updateAutoRestUI();
+      showToast(
+        appState.autoRest ? 'الراحة التلقائية مفعّلة عند إنهاء المجموعة' : 'تم إيقاف التشغيل التلقائي للراحة',
+        'info'
+      );
+    });
+
+    presetButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        appState.restPreset = Number(btn.dataset.preset);
+        saveState();
+        stopRestTimer();
+        remainingSeconds = appState.restPreset;
+        updatePresetButtonsUI();
+        updateTimerUI();
+      });
+    });
+
+    // =========================================================================
+    // 10. التشغيل المبدئي للتطبيق
+    // =========================================================================
+    renderNavigation();
+    renderMainContent();
+    updateSessionUI();
+    syncTimerFromState();
+  </script>
+</body>
+</html>
