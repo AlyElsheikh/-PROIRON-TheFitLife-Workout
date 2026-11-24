@@ -88,7 +88,7 @@
             جدول تمارين <span class="text-transparent bg-clip-text bg-gradient-to-l from-emerald-400 via-sky-400 to-amber-400">PROIRON &amp; TheFitLife</span> الاحترافي
           </h1>
           <p class="text-slate-400 text-xs sm:text-sm font-semibold mt-1">
-            PROIRON (100 LB بغلاف واقٍ) + TheFitLife (300 LB أوزان ثقيلة) • إحماء + 22 تمرين (110 فيديو مدمج) + إطالات
+            PROIRON (100 LB بغلاف واقٍ) + TheFitLife (300 LB أوزان ثقيلة) • إحماء + 26 تمرين (130 فيديو مدمج) + إطالات
           </p>
         </div>
 
@@ -540,9 +540,9 @@
         label: 'طقم PROIRON (حتى 100 LB - بغلاف واقٍ)',
         options: [
           '10 LB (أصفر - PROIRON)',
-          '15 LB (أزرق - PROIRON)',
-          '20 LB (أحمر - PROIRON)',
-          '25 LB (أخضر - PROIRON)',
+          '15 LB (أخضر/تركواز - PROIRON)',
+          '20 LB (برتقالي - PROIRON)',
+          '25 LB (أحمر - PROIRON)',
           '30 LB (أسود - PROIRON)',
           '35-50 LB (تجميعة PROIRON)',
           '55-100 LB (تجميعة PROIRON)',
@@ -551,18 +551,14 @@
       {
         label: 'طقم TheFitLife (حتى 300 LB - أوزان ثقيلة)',
         options: [
-          '30 LB (TheFitLife)',
-          '40 LB (TheFitLife)',
-          '50 LB (TheFitLife)',
-          '60 LB (TheFitLife)',
-          '70 LB (TheFitLife)',
-          '80 LB (TheFitLife)',
-          '100 LB (تجميعة TheFitLife)',
-          '120 LB (تجميعة TheFitLife)',
-          '150 LB (تجميعة TheFitLife)',
-          '180 LB (تجميعة TheFitLife)',
-          '200 LB (تجميعة TheFitLife)',
-          '250 LB (تجميعة TheFitLife)',
+          '40 LB (أخضر - TheFitLife)',
+          '50 LB (أسود - TheFitLife)',
+          '60 LB (برتقالي - TheFitLife)',
+          '70 LB (رمادي - TheFitLife)',
+          '80 LB (بني - TheFitLife)',
+          '90-120 LB (تجميعة TheFitLife)',
+          '130-180 LB (تجميعة TheFitLife)',
+          '200-250 LB (تجميعة TheFitLife)',
           '300 LB (أقصى مقاومة TheFitLife)',
         ],
       },
@@ -634,9 +630,9 @@
     ];
 
     const CATEGORY_TABS = [
-      { type: 'push', label: 'الدفع (7 تمارين)', defaultDayIdx: 0 },
-      { type: 'pull', label: 'السحب (7 تمارين)', defaultDayIdx: 1 },
-      { type: 'lower', label: 'الرجلين والبطن (8)', defaultDayIdx: 2 },
+      { type: 'push', label: 'الدفع (8 تمارين)', defaultDayIdx: 0 },
+      { type: 'pull', label: 'السحب (8 تمارين)', defaultDayIdx: 1 },
+      { type: 'lower', label: 'الرجلين والبطن (10)', defaultDayIdx: 2 },
       { type: 'rest', label: 'يوم الراحة', defaultDayIdx: 3 },
     ];
 
@@ -683,13 +679,31 @@
         ],
         exercises: [
           {
+            id: 'ex-2',
+            arName: 'دفع صدر مستقيم',
+            enName: 'Flat Chest Press',
+            target: 'منتصف الصدر (التمرين المركب الأساسي)',
+            kit: 'TheFitLife (أوزان ثقيلة حتى 300 LB)',
+            kitType: 'fitlife',
+            anchor: 'نص الباب (المفصلات) — ضهرك للباب، ادفع مستقيم للأمام بدون قفل الكوع',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: 'oQpnL60ptmU', title: 'Chest- Resistance bands mid door anchored chest press', channel: 'Fit2Go PT' },
+              { id: 'POx0bVn823Q', title: 'Standing Chest Press Using Resistance Bands', channel: 'Home Gym Fitness' },
+              { id: '7q2395GvhZc', title: 'How to Do a Band Chest Press (w/ Anchor)', channel: 'Mountain Goat' },
+              { id: 'gOodfSFUj5E', title: 'INEVIFIT Resistance Bands Exercise Guide - Chest Press', channel: 'INEVIFIT' },
+              { id: '6-86jEAXA08', title: 'How To: Resistance Band Chest Press', channel: 'Live Lean TV' },
+            ],
+          },
+          {
             id: 'ex-1',
             arName: 'دفع صدر مائل لأعلى',
             enName: 'Incline Chest Press',
             target: 'الصدر العلوي + كتف أمامي',
             kit: 'PROIRON للبداية / TheFitLife للتثقيل',
             kitType: 'both',
-            anchor: 'تحت الباب — ضهرك للباب، ادفع للأمام ولأعلى (45°)',
+            anchor: 'تحت الباب — ضهرك للباب، الحبل تحت ذراعك وادفع لمستوى عينك (45°)',
             setsReps: '3 × 12–15',
             sets: 3,
             videos: [
@@ -701,21 +715,21 @@
             ],
           },
           {
-            id: 'ex-2',
-            arName: 'دفع صدر مستقيم',
-            enName: 'Flat Chest Press',
-            target: 'منتصف الصدر',
-            kit: 'TheFitLife (أوزان ثقيلة حتى 300 LB)',
-            kitType: 'fitlife',
-            anchor: 'نص الباب (المفصلات) — ضهرك للباب، ادفع مستقيم للأمام',
+            id: 'ex-23',
+            arName: 'تفتيح صدر مستقيم',
+            enName: 'Standing Mid Chest Fly',
+            target: 'عزل منتصف الصدر والخط الداخلي (بدون إجهاد التراي)',
+            kit: 'PROIRON (تحكم وعزل ممتاز)',
+            kitType: 'proiron',
+            anchor: 'نص الباب (مستوى الصدر) — ضهرك للباب، اثنِ كوعك قليلاً وضم إيديك قدام صدرك',
             setsReps: '3 × 12–15',
             sets: 3,
             videos: [
-              { id: 'oQpnL60ptmU', title: 'Chest- Resistance bands mid door anchored chest press', channel: 'Fit2Go PT' },
-              { id: 'POx0bVn823Q', title: 'Standing Chest Press Using Resistance Bands', channel: 'Home Gym Fitness' },
-              { id: '7q2395GvhZc', title: 'How to Do a Band Chest Press (w/ Anchor)', channel: 'Mountain Goat' },
-              { id: 'gOodfSFUj5E', title: 'INEVIFIT Resistance Bands Exercise Guide - Chest Press', channel: 'INEVIFIT' },
-              { id: '6-86jEAXA08', title: 'How To: Resistance Band Chest Press', channel: 'Live Lean TV' },
+              { id: '7l8HfDNXY6E', title: 'Chest- Resistance bands mid door anchored chest fly', channel: 'Fit2Go Personal Training' },
+              { id: 'FRLCnWioQCM', title: 'INEVIFIT Resistance Bands Exercise Guide - Chest Flys', channel: 'INEVIFIT LLC' },
+              { id: 'oJKLBnV9UwI', title: 'CABLE FLYS w/ Resistance Bands Explained (Proper Form + Tips)', channel: 'Discipline Dave' },
+              { id: 'kd8B3NiBRdk', title: 'Chest- resistance bands low door anchored chest fly', channel: 'Fit2Go Personal Training' },
+              { id: 'fYU5o7cmN70', title: '3 Great CHEST Exercises with Door-anchor resistant bands', channel: 'GENACKS FITNESS' },
             ],
           },
           {
@@ -920,9 +934,9 @@
           },
           {
             id: 'ex-10',
-            arName: 'سحب بذراعين مفرودتين',
+            arName: 'سحب بذراعين مفرودتين (بديل الأوفر)',
             enName: 'Straight-Arm Pulldown',
-            target: 'المجنص السفلي',
+            target: 'المجنص السفلي + الصدر + العضلات المنشارية',
             kit: 'PROIRON أو TheFitLife',
             kitType: 'both',
             anchor: 'فوق الباب — وشك للباب بميل خفيف، اسحب لتحت وذراعك مفرود',
@@ -952,6 +966,24 @@
               { id: 'a0mnecMGlTM', title: 'Resistance Band Face Pull', channel: 'Jack Fit PT' },
               { id: 'Q77ORURfeYc', title: 'Band Face Pull (door anchor)', channel: 'Caroline Juster' },
               { id: 'Qij3pSB-gNk', title: 'Face Pulls w/ Resistance Band', channel: 'BMC Performance' },
+            ],
+          },
+          {
+            id: 'ex-24',
+            arName: 'رفرفة كتف خلفي',
+            enName: 'Band Reverse Fly',
+            target: 'عزل الكتف الخلفي (Rear Delts)',
+            kit: 'PROIRON (مقاومة خفيفة وتحكم)',
+            kitType: 'proiron',
+            anchor: 'نص الباب (مستوى الصدر) — وشك للباب، افتح ذراعيك للجنب وللخلف مع ثني خفيف بالكوع',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: 'TVTP8Q1T3K8', title: 'Reverse Delt Fly Using Resistance Bands - Rear Deltoid Exercise', channel: 'Home Gym Fitness Channel' },
+              { id: 'Oko3ltMz-9A', title: 'Banded Rear Delt Fly- Band with Door', channel: 'Rochelle Walter' },
+              { id: 'eyb685x0L5Y', title: 'Banded Reverse Fly', channel: 'BEFORM Performance Physical Therapy' },
+              { id: 'Zaj4eI_9UWo', title: '3 Resistance Band Exercises That Build Your Shoulders', channel: 'Pawe Kumwenda' },
+              { id: 'Ld4VYjDJBBE', title: 'Only Resistance Band Back Exercises: Target Lats, Traps & Rear Delts', channel: 'Vector Fitness Exercises' },
             ],
           },
           {
@@ -1046,7 +1078,7 @@
       },
       lower: {
         title: 'يوم الرجلين والبطن (Lower + Core)',
-        subtitle: 'فخذ أمامي وخلفي وداخلي + سمانة + بطن علوي وسفلي وجوانب وثبات',
+        subtitle: 'فخذ أمامي وخلفي وداخلي + مؤخرة + سمانة + بطن علوي وسفلي وجوانب وثبات',
         warmup: [
           {
             id: 'wu-lower-1',
@@ -1134,6 +1166,42 @@
               { id: '9zS8ckgEt2E', title: 'Resistance band- sumo squats', channel: 'Rylee Counce' },
               { id: 'EK9BwW3SggI', title: 'Resistance Band Sumo Squat', channel: 'CoachNate' },
               { id: 'iRoE9zApiCI', title: 'Sumo Squat Resistance bands', channel: 'Gunal Kotian' },
+            ],
+          },
+          {
+            id: 'ex-25',
+            arName: 'ثني الفخذ الخلفي بالحبل',
+            enName: 'Lying Band Hamstring Curl',
+            target: 'عزل الفخذ الخلفي (ثني الركبة)',
+            kit: 'PROIRON أو TheFitLife + أحزمة الكاحل',
+            kitType: 'both',
+            anchor: 'تحت الباب + أحزمة الكاحل — استلقِ على بطنك واسحب كعبيك معاً ناحية المؤخرة',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: 'GBXQdlzBxM4', title: 'HOW TO DO Lying Hamstrings Curl with Resistance Bands', channel: 'Bodylastics' },
+              { id: 'LtTcXXgeRYo', title: 'Band Prone Hamstring Curl', channel: 'Testosterone Nation' },
+              { id: 's4F0dvvYnbA', title: 'Hamstring curl with resistance tubing', channel: 'Drugs.com' },
+              { id: '_yeiWdZ0kM8', title: 'Home Essentials… Banded Hamstring Curls', channel: 'StrongDontQuit' },
+              { id: '-P5OkdeQbQU', title: 'Single-Leg Leg Curl (Resistance Band)', channel: 'Coach Yash' },
+            ],
+          },
+          {
+            id: 'ex-26',
+            arName: 'دفع الحوض بالحبل',
+            enName: 'Banded Glute Bridge',
+            target: 'المؤخرة + الفخذ الخلفي + أسفل الظهر',
+            kit: 'TheFitLife (أوزان ثقيلة) — على مرتبة تمرين',
+            kitType: 'fitlife',
+            anchor: 'استلقِ على ظهرك — مرّر الحبل فوق الحوض وثبّت طرفيه بيديك أو تحت قدميك وارفع الحوض',
+            setsReps: '3 × 15',
+            sets: 3,
+            videos: [
+              { id: 'rIYADalJKfY', title: 'Add Resistance To Your Bridge With Banded Glute Bridges', channel: 'Dr. Carl Baird' },
+              { id: '-8peiPaQM64', title: 'How to do Band Glute Bridges', channel: 'Get Strong with Emily' },
+              { id: '6oYSPzZlwL0', title: 'How to Properly Perform Resistance Band Glute Bridge With Good Form', channel: 'Gerardi Performance' },
+              { id: 'p7cFEtMC68g', title: 'Glute Bridge w Band NEW', channel: 'ChiroUp' },
+              { id: 'p5N_fok9YCM', title: 'Banded Glute Bridge', channel: 'FIT Sisters - Lucy & Rosie' },
             ],
           },
           {
