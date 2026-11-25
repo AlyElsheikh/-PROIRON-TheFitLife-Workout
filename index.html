@@ -161,7 +161,7 @@
       <div class="mt-4">
         <div class="flex items-center justify-between mb-2">
           <span class="text-xs font-bold text-slate-400">الجدول الأسبوعي (مقاومة متوازنة + كور واستشفاء نشط):</span>
-          <span class="text-[11px] font-semibold text-slate-500">اختر اليوم</span>
+          <span class="text-[11px] font-semibold text-slate-500">كل يوم ليه تقدم مستقل</span>
         </div>
         <div id="weeklyBar" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
           <!-- يتم التوليد عبر JavaScript -->
@@ -1409,21 +1409,99 @@
     };
 
     // =========================================================================
-    // 3. إدارة الحالة الموحّدة في localStorage تحت نفس المفتاح للتوافق التام
+    // 3. إدارة الحالة الموحّدة في localStorage مع فصل التقدم لكل يوم وترحيل البيانات القديمة
     // =========================================================================
     const STORAGE_KEY = 'proiron_pro_unified_state_v4';
+    const VALID_PRESETS = [45, 60, 90];
 
     function getDefaultState() {
       return {
         selectedDayIndex: 0,
-        sets: {},       // { 'ex-1': [true, false, false] }
-        warmups: {},    // { 'wu-push-1': true }
-        cooldowns: {},  // { 'cd-push-1': true }
-        bands: {},      // { 'ex-1': '20 LB (أحمر - PROIRON)' }
-        notes: {},      // { 'ex-1': 'المرة الجاية أزود الحبل' }
+        sets: {},       // مفصول لكل يوم: { 'd0_ex-1': [true, false, false] }
+        warmups: {},    // مفصول لكل يوم: { 'd0_wu-push-1': true }
+        cooldowns: {},  // مفصول لكل يوم: { 'd0_cd-push-1': true }
+        bands: {},      // مشترك بين الأيام: { 'ex-1': '25 LB (أحمر - PROIRON)' }
+        notes: {},      // مشترك بين الأيام: { 'ex-1': 'المرة الجاية أزود الحبل' }
         autoRest: true,
         restPreset: 45,
       };
+    }
+
+    function getDayKey(itemId, dayIdx = appState.selectedDayIndex) {
+      return `d${dayIdx}_${itemId}`;
+    }
+
+    // ترحيل أي بيانات قديمة (غير مربوطة برقم اليوم) إلى أول يوم يخصها فقط (يوم 1 أو 2 أو 3 أو 4)
+    function normalizeAndMigrateState(rawObj) {
+      const state = {
+        ...getDefaultState(),
+        ...(rawObj && typeof rawObj === 'object' ? rawObj : {}),
+        sets: rawObj && rawObj.sets && typeof rawObj.sets === 'object' ? rawObj.sets : {},
+        warmups: rawObj && rawObj.warmups && typeof rawObj.warmups === 'object' ? rawObj.warmups : {},
+        cooldowns: rawObj && rawObj.cooldowns && typeof rawObj.cooldowns === 'object' ? rawObj.cooldowns : {},
+        bands: rawObj && rawObj.bands && typeof rawObj.bands === 'object' ? rawObj.bands : {},
+        notes: rawObj && rawObj.notes && typeof rawObj.notes === 'object' ? rawObj.notes : {},
+      };
+
+      const firstDayForType = { push: 0, pull: 1, lower: 2, core_recovery: 3 };
+      let migrated = false;
+
+      const findOwnerDayIdx = (id) => {
+        for (const [dayKey, dayData] of Object.entries(WORKOUT_DATA)) {
+          if (
+            dayData.exercises.some((e) => e.id === id) ||
+            dayData.warmup.some((w) => w.id === id) ||
+            dayData.cooldown.some((c) => c.id === id)
+          ) {
+            return firstDayForType[dayKey];
+          }
+        }
+        return null;
+      };
+
+      const migrateMap = (mapObj) => {
+        const next = {};
+        // أولاً نحفظ المفاتيح الجديدة المربوطة برقم اليوم كما هي
+        Object.entries(mapObj).forEach(([k, v]) => {
+          if (/^d\d+_/.test(k)) {
+            next[k] = v;
+          }
+        });
+        // ثانياً نرحّل أي مفاتيح قديمة (بدون dX_) لأول يوم يخصها فقط دون الكتابة فوق مفاتيح جديدة
+        Object.entries(mapObj).forEach(([k, v]) => {
+          if (!/^d\d+_/.test(k)) {
+            migrated = true;
+            const ownerIdx = findOwnerDayIdx(k);
+            if (ownerIdx !== null) {
+              const newKey = `d${ownerIdx}_${k}`;
+              if (!(newKey in next)) {
+                next[newKey] = v;
+              }
+            }
+          }
+        });
+        return next;
+      };
+
+      state.sets = migrateMap(state.sets);
+      state.warmups = migrateMap(state.warmups);
+      state.cooldowns = migrateMap(state.cooldowns);
+
+      if (!VALID_PRESETS.includes(Number(state.restPreset))) {
+        state.restPreset = 45;
+        migrated = true;
+      }
+
+      if (
+        typeof state.selectedDayIndex !== 'number' ||
+        state.selectedDayIndex < 0 ||
+        state.selectedDayIndex >= WEEKLY_SCHEDULE.length
+      ) {
+        state.selectedDayIndex = 0;
+        migrated = true;
+      }
+
+      return { state, migrated };
     }
 
     function loadState() {
@@ -1431,15 +1509,11 @@
         const raw = localStorage.getItem(STORAGE_KEY);
         if (!raw) return getDefaultState();
         const parsed = JSON.parse(raw);
-        return {
-          ...getDefaultState(),
-          ...parsed,
-          sets: parsed.sets && typeof parsed.sets === 'object' ? parsed.sets : {},
-          warmups: parsed.warmups && typeof parsed.warmups === 'object' ? parsed.warmups : {},
-          cooldowns: parsed.cooldowns && typeof parsed.cooldowns === 'object' ? parsed.cooldowns : {},
-          bands: parsed.bands && typeof parsed.bands === 'object' ? parsed.bands : {},
-          notes: parsed.notes && typeof parsed.notes === 'object' ? parsed.notes : {},
-        };
+        const { state, migrated } = normalizeAndMigrateState(parsed);
+        if (migrated) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }
+        return state;
       } catch (e) {
         return getDefaultState();
       }
@@ -1461,17 +1535,26 @@
       }
     }
 
-    // مساعدات المجموعات والإنجاز
-    function getSetArray(ex) {
-      const existing = appState.sets[ex.id];
+    // مساعدات المجموعات والإنجاز لكل يوم بشكل مستقل
+    function getSetArray(ex, dayIdx = appState.selectedDayIndex) {
+      const key = getDayKey(ex.id, dayIdx);
+      const existing = appState.sets[key];
       if (Array.isArray(existing) && existing.length === ex.sets) {
         return existing;
       }
       return Array(ex.sets).fill(false);
     }
 
-    function isExerciseCompleted(ex) {
-      return getSetArray(ex).every(Boolean);
+    function isExerciseCompleted(ex, dayIdx = appState.selectedDayIndex) {
+      return getSetArray(ex, dayIdx).every(Boolean);
+    }
+
+    function isDayExercisesDone(dayIdx) {
+      const scheduleItem = WEEKLY_SCHEDULE[dayIdx];
+      if (!scheduleItem) return false;
+      const dayData = WORKOUT_DATA[scheduleItem.type];
+      if (!dayData || !dayData.exercises.length) return false;
+      return dayData.exercises.every((ex) => isExerciseCompleted(ex, dayIdx));
     }
 
     function findAnyItemById(itemId) {
@@ -1566,15 +1649,16 @@
     }
 
     // =========================================================================
-    // 4. رسم الواجهة (الشريط الأسبوعي، التقدم، الإحماء، التمارين، الإطالات، والراحة)
+    // 4. رسم الواجهة (الشريط الأسبوعي، التقدم، الإحماء، التمارين، الإطالات)
     // =========================================================================
     function renderNavigation() {
       const activeType = WEEKLY_SCHEDULE[appState.selectedDayIndex].type;
 
-      // شريط الأيام الـ 7
+      // شريط الأيام الـ 7 (مع علامة ✓ لكل يوم أتممت تمارينه الأساسية)
       const weeklyBar = document.getElementById('weeklyBar');
       weeklyBar.innerHTML = WEEKLY_SCHEDULE.map((item, idx) => {
         const isSelected = idx === appState.selectedDayIndex;
+        const dayDone = isDayExercisesDone(idx);
         const theme = DAY_THEMES[item.type];
         const cls = isSelected
           ? theme.activeDayBtn
@@ -1589,6 +1673,7 @@
             <div class="flex items-center gap-1.5">
               <span class="w-1.5 h-1.5 rounded-full ${theme.dot}"></span>
               <span class="text-[11px] font-bold opacity-85">${item.day}</span>
+              ${dayDone ? '<span class="text-[11px] font-black text-emerald-400" title="تم إنجاز تمارين هذا اليوم">✓</span>' : ''}
             </div>
             <span class="text-xs font-extrabold mt-0.5 leading-tight">${item.label}</span>
           </button>
@@ -1624,9 +1709,9 @@
 
       const theme = DAY_THEMES[dayType];
 
-      const wuDone = dayData.warmup.filter((w) => appState.warmups[w.id]).length;
+      const wuDone = dayData.warmup.filter((w) => appState.warmups[getDayKey(w.id)]).length;
       const exDone = dayData.exercises.filter((ex) => isExerciseCompleted(ex)).length;
-      const cdDone = dayData.cooldown.filter((c) => appState.cooldowns[c.id]).length;
+      const cdDone = dayData.cooldown.filter((c) => appState.cooldowns[getDayKey(c.id)]).length;
 
       const totalItems = dayData.warmup.length + dayData.exercises.length + dayData.cooldown.length;
       const doneItems = wuDone + exDone + cdDone;
@@ -1649,7 +1734,7 @@
 
     function renderCollapsibleChecklist(sectionKey, title, items, stateMap, toggleFnName, accentColor) {
       const isCollapsed = collapsedSections[sectionKey];
-      const doneCount = items.filter((item) => stateMap[item.id]).length;
+      const doneCount = items.filter((item) => stateMap[getDayKey(item.id)]).length;
       const allDone = doneCount === items.length;
 
       const borderAccent =
@@ -1664,7 +1749,7 @@
 
       const itemsHtml = items
         .map((item) => {
-          const checked = Boolean(stateMap[item.id]);
+          const checked = Boolean(stateMap[getDayKey(item.id)]);
           return `
             <div class="p-3.5 rounded-2xl border transition-all flex items-start justify-between gap-3 ${
               checked
@@ -1990,13 +2075,15 @@
     };
 
     window.toggleWarmup = function (wuId) {
-      appState.warmups[wuId] = !appState.warmups[wuId];
+      const key = getDayKey(wuId);
+      appState.warmups[key] = !appState.warmups[key];
       saveState();
       renderMainContent();
     };
 
     window.toggleCooldown = function (cdId) {
-      appState.cooldowns[cdId] = !appState.cooldowns[cdId];
+      const key = getDayKey(cdId);
+      appState.cooldowns[key] = !appState.cooldowns[key];
       saveState();
       renderMainContent();
     };
@@ -2009,8 +2096,9 @@
       const arr = [...getSetArray(ex)];
       const wasDone = arr[setIdx];
       arr[setIdx] = !wasDone;
-      appState.sets[ex.id] = arr;
+      appState.sets[getDayKey(ex.id)] = arr;
       saveState();
+      renderNavigation();
       renderMainContent();
 
       // عند تحديد مجموعة جديدة كـ "تم" وتشغيل خيار الراحة التلقائية، يبدأ المؤقت فوراً
@@ -2028,8 +2116,9 @@
       const ex = found.item;
 
       const currentlyDone = isExerciseCompleted(ex);
-      appState.sets[ex.id] = Array(ex.sets).fill(!currentlyDone);
+      appState.sets[getDayKey(ex.id)] = Array(ex.sets).fill(!currentlyDone);
       saveState();
+      renderNavigation();
       renderMainContent();
 
       if (!currentlyDone) {
@@ -2043,8 +2132,8 @@
       if (!dayData) return;
 
       const allExDone = dayData.exercises.every((ex) => isExerciseCompleted(ex));
-      const allWuDone = dayData.warmup.every((w) => appState.warmups[w.id]);
-      const allCdDone = dayData.cooldown.every((c) => appState.cooldowns[c.id]);
+      const allWuDone = dayData.warmup.every((w) => appState.warmups[getDayKey(w.id)]);
+      const allCdDone = dayData.cooldown.every((c) => appState.cooldowns[getDayKey(c.id)]);
 
       if (allExDone && allWuDone && allCdDone) {
         showToast('عاش يا بطل! أتممت الحصة كاملة بالإحماء والإطالات', 'success');
@@ -2075,12 +2164,13 @@
       const dayData = WORKOUT_DATA[dayType];
       if (!dayData) return;
 
-      dayData.warmup.forEach((w) => delete appState.warmups[w.id]);
-      dayData.exercises.forEach((ex) => delete appState.sets[ex.id]);
-      dayData.cooldown.forEach((c) => delete appState.cooldowns[c.id]);
+      dayData.warmup.forEach((w) => delete appState.warmups[getDayKey(w.id)]);
+      dayData.exercises.forEach((ex) => delete appState.sets[getDayKey(ex.id)]);
+      dayData.cooldown.forEach((c) => delete appState.cooldowns[getDayKey(c.id)]);
       saveState();
+      renderNavigation();
       renderMainContent();
-      showToast('تم تصفير تقدم هذا اليوم بالكامل', 'amber');
+      showToast('تم تصفير تقدم هذا اليوم فقط بالكامل', 'amber');
     });
 
     // =========================================================================
@@ -2352,15 +2442,8 @@
         if (!parsed || typeof parsed !== 'object') {
           throw new Error('صيغة غير صالحة');
         }
-        appState = {
-          ...getDefaultState(),
-          ...parsed,
-          sets: parsed.sets && typeof parsed.sets === 'object' ? parsed.sets : {},
-          warmups: parsed.warmups && typeof parsed.warmups === 'object' ? parsed.warmups : {},
-          cooldowns: parsed.cooldowns && typeof parsed.cooldowns === 'object' ? parsed.cooldowns : {},
-          bands: parsed.bands && typeof parsed.bands === 'object' ? parsed.bands : {},
-          notes: parsed.notes && typeof parsed.notes === 'object' ? parsed.notes : {},
-        };
+        const { state } = normalizeAndMigrateState(parsed);
+        appState = state;
         saveState();
         syncTimerFromState();
         renderNavigation();
@@ -2522,7 +2605,7 @@
 
     function syncTimerFromState() {
       stopRestTimer();
-      remainingSeconds = appState.restPreset || 45;
+      remainingSeconds = VALID_PRESETS.includes(Number(appState.restPreset)) ? Number(appState.restPreset) : 45;
       updatePresetButtonsUI();
       updateAutoRestUI();
       updateTimerUI();
