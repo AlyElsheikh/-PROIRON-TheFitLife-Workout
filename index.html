@@ -88,7 +88,7 @@
             جدول تمارين <span class="text-transparent bg-clip-text bg-gradient-to-l from-emerald-400 via-sky-400 to-amber-400">PROIRON &amp; TheFitLife</span> الاحترافي
           </h1>
           <p class="text-slate-400 text-xs sm:text-sm font-semibold mt-1">
-            PROIRON (100 LB بغلاف واقٍ) + TheFitLife (300 LB أوزان ثقيلة) • إحماء + 26 تمرين (130 فيديو مدمج) + إطالات
+            PROIRON (100 LB بغلاف واقٍ) + TheFitLife (300 LB أوزان ثقيلة) • إحماء + 28 تمرين (140 فيديو مدمج) + إطالات
           </p>
         </div>
 
@@ -363,7 +363,7 @@
             <span class="px-2.5 py-0.5 rounded-lg bg-violet-500/15 text-violet-300 text-[11px] font-bold">45 – 90 ثانية</span>
           </div>
           <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            اضغط على دائرة المجموعة (1، 2، 3...) فور إنهائها ليبدأ مؤقت الراحة تلقائياً أسفل الشاشة. استخدم 45–60 ثانية للعزل و60–90 ثانية للسكوات والرفعة الميتة.
+            اضغط على دائرة المجموعة (1، 2، 3...) فور إنهائها ليبدأ مؤقت الراحة تلقائياً أسفل الشاشة. استخدم 45–60 ثانية للعزل و60–90 ثانية للسكوات والرفعة الميتة، وزر 20ث لشفط البطن (الفاكيوم).
           </p>
         </div>
 
@@ -373,7 +373,7 @@
             <span class="px-2.5 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 text-[11px] font-bold">حماية وأوزان عالية</span>
           </div>
           <ul class="text-xs sm:text-sm text-slate-300 leading-relaxed space-y-1.5 list-disc list-inside">
-            <li><strong class="text-amber-300">PROIRON (حتى 100 LB):</strong> مغلف ببوليستر مع واقٍ وسطي — استخدمه لتمارين العزل (كتف، بايسبس، ترايسبس، سحب للوجه) والتمارين التي تقف فيها على الحبل لحمايته من احتكاك الأرض.</li>
+            <li><strong class="text-amber-300">PROIRON (حتى 100 LB):</strong> مغلف ببوليستر مع واقٍ وسطي — استخدمه لتمارين العزل (كتف، بايسبس، ترايسبس، سحب للوجه، بالوف بريس) والتمارين التي تقف فيها على الحبل لحمايته من احتكاك الأرض.</li>
             <li><strong class="text-sky-300">TheFitLife (حتى 300 LB):</strong> أنابيب لاتكس مكشوفة لأوزان ثقيلة — استخدمه للتمارين المركبة الثقيلة (سكوات، رفعة ميتة، ظهر، صدر)، وقف دائماً على مرتبة تمرين أو بحذاء نعل مسطح ناعم.</li>
             <li><strong class="text-white">قواعد الأمان الإلزامية:</strong> افحص الحبال والمشابك قبل كل تمرين للتأكد من عدم وجود تشققات، ثبّت مرساة الباب دائماً من <strong class="text-emerald-300">جهة المفصلات</strong> وأقفل الباب بالمفتاح، وتجنب سحب الحبل المشدود مباشرة نحو الوجه.</li>
           </ul>
@@ -475,13 +475,16 @@
             </svg>
           </div>
           <div>
-            <div class="text-[10px] text-slate-400 font-bold leading-none">مؤقت الراحة</div>
+            <div class="text-[10px] text-slate-400 font-bold leading-none">مؤقت الراحة / الفاكيوم</div>
             <div id="timerDisplay" class="text-xl sm:text-2xl font-black text-white tabular-nums leading-tight">00:45</div>
           </div>
         </div>
 
-        <!-- أزرار 45 / 60 / 90 ثانية -->
+        <!-- أزرار 20 / 45 / 60 / 90 ثانية -->
         <div class="flex items-center gap-1">
+          <button type="button" data-preset="20" title="لشفط البطن (الفاكيوم)" class="preset-btn px-2.5 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer">
+            20ث
+          </button>
           <button type="button" data-preset="45" class="preset-btn px-2.5 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer">
             45ث
           </button>
@@ -632,12 +635,12 @@
     const CATEGORY_TABS = [
       { type: 'push', label: 'الدفع (8 تمارين)', defaultDayIdx: 0 },
       { type: 'pull', label: 'السحب (8 تمارين)', defaultDayIdx: 1 },
-      { type: 'lower', label: 'الرجلين والبطن (10)', defaultDayIdx: 2 },
+      { type: 'lower', label: 'الرجلين والبطن (12)', defaultDayIdx: 2 },
       { type: 'rest', label: 'يوم الراحة', defaultDayIdx: 3 },
     ];
 
     // =========================================================================
-    // 2. قاعدة بيانات التمارين الكاملة (الإحماء + 22 تمرين بـ 110 فيديو + الإطالات)
+    // 2. قاعدة بيانات التمارين الكاملة (الإحماء + 28 تمرين بـ 140 فيديو + الإطالات)
     // =========================================================================
     const WORKOUT_DATA = {
       push: {
@@ -1078,7 +1081,7 @@
       },
       lower: {
         title: 'يوم الرجلين والبطن (Lower + Core)',
-        subtitle: 'فخذ أمامي وخلفي وداخلي + مؤخرة + سمانة + بطن علوي وسفلي وجوانب وثبات',
+        subtitle: 'فخذ أمامي وخلفي وداخلي + مؤخرة + سمانة + بطن علوي وسفلي وجوانب وثبات وشدّ الوسط',
         warmup: [
           {
             id: 'wu-lower-1',
@@ -1241,6 +1244,24 @@
             ],
           },
           {
+            id: 'ex-27',
+            arName: 'ضغط بالوف للثبات',
+            enName: 'Band Pallof Press',
+            target: 'العضلة المستعرضة العميقة + جوانب البطن + ثبات الجذع',
+            kit: 'PROIRON (مقاومة خفيفة/متوسطة وتحكم)',
+            kitType: 'proiron',
+            anchor: 'نص الباب (مستوى الصدر) — اقف بجنبك للباب، افرد ذراعيك للأمام واثبت 2–3 ثواني وامنع الحبل يلفّ وسطك',
+            setsReps: '3 × 10–12 لكل جنب',
+            sets: 3,
+            videos: [
+              { id: '8ekfaNZx7I0', title: 'Band Pallof Press | Resistance Band + Door Anchor', channel: 'Allison Ethier' },
+              { id: 'Yo7HpbBiQs8', title: 'Pallof Press with band', channel: 'Wild Movement Collective' },
+              { id: 'y1fOBVtANdM', title: 'How to do a Standing Banded Pallof Press', channel: 'TurnFit - Vancouver Personal Trainers' },
+              { id: 'JEjKGg7dVVA', title: 'Pallof Press - resistance band', channel: 'Coach Miranda' },
+              { id: '99evyH71IWs', title: 'Band Pallof Press', channel: 'Queens University of Charlotte Sports Performance' },
+            ],
+          },
+          {
             id: 'ex-20',
             arName: 'رفع الرجلين',
             enName: 'Lying Leg Raises',
@@ -1292,6 +1313,24 @@
               { id: 'xe2MXatLTUw', title: 'The PERFECT Plank', channel: 'DeltaBolic' },
               { id: 'F-C0CzNK22s', title: 'Forearm Plank correct position', channel: 'Fitness vlogs' },
               { id: '3QZlgJ40LfU', title: 'Demonstration of a Forearm Plank', channel: 'Hospital for Special Surgery' },
+            ],
+          },
+          {
+            id: 'ex-28',
+            arName: 'شفط البطن للداخل (الفاكيوم)',
+            enName: 'Stomach Vacuum',
+            target: 'العضلة المستعرضة البطنية (شدّ ولمّ الوسط)',
+            kit: 'وزن الجسم (بدون حبل)',
+            kitType: 'bodyweight',
+            anchor: 'واقف أو على معدة فاضية — طلّع الهوا واشفط سُرتك لجوه واثبت 15–20 ثانية مع تنفس خفيف (استخدم زر 20ث)',
+            setsReps: '4 × 15–20 ثانية',
+            sets: 4,
+            videos: [
+              { id: 'cub3xhJXsAA', title: 'How to Do the Stomach Vacuum Exercise', channel: 'wikiHow' },
+              { id: '5ygAHVvbvJE', title: 'The Stomach Vacuum Exercise: How to Do It Correctly', channel: 'Shelley Darlington' },
+              { id: 'JTRaxMuSpt4', title: 'Stomach Vacuum Tutorial', channel: 'Casey Kelly' },
+              { id: 'mp6WamWmG-4', title: 'How to stomach vacuum, abdominal vacuum, or hypopressive breathing', channel: 'Whealth' },
+              { id: 'JL40377eyOQ', title: 'Stomach Vacuum Exercise', channel: 'Blissedhappiness Karina Blackwood' },
             ],
           },
         ],
@@ -2382,7 +2421,7 @@
     });
 
     // =========================================================================
-    // 9. مؤقت الراحة العائم (45 / 60 / 90 ثانية + تشغيل تلقائي + تنبيه Web Audio API)
+    // 9. مؤقت الراحة العائم (20 / 45 / 60 / 90 ثانية + تشغيل تلقائي + تنبيه Web Audio API)
     // =========================================================================
     let remainingSeconds = appState.restPreset || 45;
     let timerInterval = null;
@@ -2483,7 +2522,7 @@
         if (remainingSeconds <= 0) {
           stopRestTimer();
           playChimeAlert();
-          showToast('انتهى وقت الراحة! ادخل على المجموعة التالية', 'success');
+          showToast('انتهى الوقت! ادخل على المجموعة التالية', 'success');
 
           timerCard.classList.add('timer-flash');
           setTimeout(() => {
