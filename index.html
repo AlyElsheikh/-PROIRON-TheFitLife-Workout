@@ -88,7 +88,7 @@
             جدول تمارين <span class="text-transparent bg-clip-text bg-gradient-to-l from-emerald-400 via-sky-400 to-amber-400">PROIRON &amp; TheFitLife</span> الاحترافي
           </h1>
           <p class="text-slate-400 text-xs sm:text-sm font-semibold mt-1">
-            PROIRON (100 LB بغلاف واقٍ) + TheFitLife (300 LB أوزان ثقيلة) • إحماء + 27 تمرين (135 فيديو مدمج) + إطالات
+            PROIRON (100 LB بغلاف واقٍ) + TheFitLife (300 LB أوزان ثقيلة) • إحماء + 29 تمرين (145 فيديو مدمج) + إطالات
           </p>
         </div>
 
@@ -373,7 +373,7 @@
             <span class="px-2.5 py-0.5 rounded-lg bg-rose-500/15 text-rose-300 text-[11px] font-bold">حماية وأوزان عالية</span>
           </div>
           <ul class="text-xs sm:text-sm text-slate-300 leading-relaxed space-y-1.5 list-disc list-inside">
-            <li><strong class="text-amber-300">PROIRON (حتى 100 LB):</strong> مغلف ببوليستر مع واقٍ وسطي — استخدمه لتمارين العزل (كتف، بايسبس، ترايسبس، سحب للوجه، بالوف بريس) والتمارين التي تقف فيها على الحبل لحمايته من احتكاك الأرض.</li>
+            <li><strong class="text-amber-300">PROIRON (حتى 100 LB):</strong> مغلف ببوليستر مع واقٍ وسطي — استخدمه لتمارين العزل (كتف، بايسبس، ترايسبس، ساعد، سحب للوجه، بالوف بريس) والتمارين التي تقف فيها على الحبل لحمايته من احتكاك الأرض.</li>
             <li><strong class="text-sky-300">TheFitLife (حتى 300 LB):</strong> أنابيب لاتكس مكشوفة لأوزان ثقيلة — استخدمه للتمارين المركبة الثقيلة (سكوات، رفعة ميتة، ظهر، صدر)، وقف دائماً على مرتبة تمرين أو بحذاء نعل مسطح ناعم.</li>
             <li><strong class="text-white">قواعد الأمان الإلزامية:</strong> افحص الحبال والمشابك قبل كل تمرين للتأكد من عدم وجود تشققات، ثبّت مرساة الباب دائماً من <strong class="text-emerald-300">جهة المفصلات</strong> وأقفل الباب بالمفتاح، وتجنب سحب الحبل المشدود مباشرة نحو الوجه.</li>
           </ul>
@@ -631,13 +631,13 @@
 
     const CATEGORY_TABS = [
       { type: 'push', label: 'الدفع (8 تمارين)', defaultDayIdx: 0 },
-      { type: 'pull', label: 'السحب (8 تمارين)', defaultDayIdx: 1 },
+      { type: 'pull', label: 'السحب (9 تمارين)', defaultDayIdx: 1 },
       { type: 'lower', label: 'الرجلين والبطن (8)', defaultDayIdx: 2 },
-      { type: 'core_recovery', label: 'كور واستشفاء (3)', defaultDayIdx: 3 },
+      { type: 'core_recovery', label: 'كور واستشفاء (4)', defaultDayIdx: 3 },
     ];
 
     // =========================================================================
-    // 2. قاعدة بيانات التمارين الكاملة (الإحماء + 27 تمرين بـ 135 فيديو + الإطالات)
+    // 2. قاعدة بيانات التمارين الكاملة (الإحماء + 29 تمرين بـ 145 فيديو + الإطالات)
     // =========================================================================
     const WORKOUT_DATA = {
       push: {
@@ -860,7 +860,7 @@
       },
       pull: {
         title: 'يوم السحب (Pull)',
-        subtitle: 'ظهر بكل زواياه + كتف خلفي + ترابيس + بايسبس وساعد • 8 تمارين (24 مجموعة)',
+        subtitle: 'ظهر بكل زواياه + كتف خلفي + ترابيس + بايسبس وساعد • 9 تمارين (26 مجموعة)',
         warmup: [
           {
             id: 'wu-pull-1',
@@ -1038,6 +1038,24 @@
               { id: 'Nai62C7rEbI', title: 'Resistance Band Hammer Curls', channel: 'Fitness Freedom' },
               { id: '2SjX9lUWWF0', title: 'How to do Resistance Band Hammer Curls', channel: 'Power Foods' },
               { id: 'c9sY_1EXyvk', title: 'Resistance Band Hammer Curls', channel: 'Undersun Fitness' },
+            ],
+          },
+          {
+            id: 'ex-29',
+            arName: 'بايسبس معكوس للساعد',
+            enName: 'Band Reverse Curls',
+            target: 'الساعد وقوة القبضة + العضلة الكعبرية (Brachioradialis)',
+            kit: 'PROIRON (مقاومة خفيفة/متوسطة وتحكم)',
+            kitType: 'proiron',
+            anchor: 'تحت القدمين — كف إيدك باصص لتحت/للخلف وكوعك ثابت بجنبك، اسحب لفوق وانزل ببطء',
+            setsReps: '2 × 12–15',
+            sets: 2,
+            videos: [
+              { id: 'b5nz0atJVvY', title: 'Forearms Workout with Resistance Band', channel: 'Fitness My Life' },
+              { id: 'yz2eCSWoY4E', title: 'BIGGER Forearms Workout', channel: 'Andrew Kwong (DeltaBolic)' },
+              { id: 'XKNkXi_cRWU', title: 'Build Thicker Forearms with Resistance Band Exercises', channel: 'KAI' },
+              { id: '7Y8fHZnjnrI', title: 'Forearm Workout Exercises', channel: 'The Supple Strength' },
+              { id: 'P_ga_QoaG_Q', title: 'Forearm Exercises Using Resistance Bands', channel: 'KAI' },
             ],
           },
         ],
@@ -1304,7 +1322,7 @@
       },
       core_recovery: {
         title: 'يوم الكور والاستشفاء النشط (Core & Active Recovery)',
-        subtitle: 'ثبات الجذع + جوانب البطن + إطالات ومشي بدون إجهاد العضلات الكبيرة • 3 تمارين (8 مجموعات)',
+        subtitle: 'ثبات الجذع + جوانب البطن + القطنية + إطالات ومشي بدون إجهاد العضلات الكبيرة • 4 تمارين (11 مجموعة)',
         warmup: [
           {
             id: 'wu-core-1',
@@ -1376,6 +1394,24 @@
               { id: 'xe2MXatLTUw', title: 'The PERFECT Plank', channel: 'DeltaBolic' },
               { id: 'F-C0CzNK22s', title: 'Forearm Plank correct position', channel: 'Fitness vlogs' },
               { id: '3QZlgJ40LfU', title: 'Demonstration of a Forearm Plank', channel: 'Hospital for Special Surgery' },
+            ],
+          },
+          {
+            id: 'ex-30',
+            arName: 'سوبرمان للقطنية وأسفل الظهر',
+            enName: 'Superman Hold / Back Extension',
+            target: 'القطنية وأسفل الظهر (Erector Spinae) + المؤخرة',
+            kit: 'وزن الجسم (بدون حبل)',
+            kitType: 'bodyweight',
+            anchor: 'استلقِ على بطنك على مرتبة تمرين — ارفع صدرك وذراعيك وساقيك بلطف واثبت 1–2 ثانية مع إبقاء الرقبة محايدة',
+            setsReps: '3 × 12–15',
+            sets: 3,
+            videos: [
+              { id: 'jTNpZIl1qU0', title: 'Proper Back Extension and Superman Form', channel: 'MoveU' },
+              { id: 'cZxtPxeR2H8', title: 'Superman Exercise For The Back', channel: 'Fit Father Project' },
+              { id: 'upxW1WlptUE', title: 'Back Extension Form and Tips', channel: 'TylerPath' },
+              { id: 'qQ67h06Oct4', title: 'Superman Back Extension', channel: 'Coach Stephen B' },
+              { id: 'CqWdutpVHxk', title: 'Strengthen Lower Back Muscles', channel: 'Tom Peto Training' },
             ],
           },
         ],
